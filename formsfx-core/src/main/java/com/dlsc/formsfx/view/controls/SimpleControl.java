@@ -9,9 +9,9 @@ package com.dlsc.formsfx.view.controls;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,8 @@ package com.dlsc.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.formsfx.view.util.ViewMixin;
+import com.dlsc.formsfx.view.renderer.FieldRenderer;
+
 import javafx.collections.ListChangeListener;
 import javafx.css.PseudoClass;
 import javafx.geometry.Point2D;
@@ -38,7 +39,7 @@ import javafx.scene.layout.GridPane;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public abstract class SimpleControl<F extends Field<F>> extends GridPane implements ViewMixin {
+public abstract class SimpleControl<F extends Field<F>> extends GridPane implements FieldRenderer<F> {
 
     /**
      * This is the Field that is used for binding and update styling changes.
@@ -58,7 +59,8 @@ public abstract class SimpleControl<F extends Field<F>> extends GridPane impleme
     protected static final PseudoClass CHANGED_CLASS = PseudoClass.getPseudoClass("changed");
     protected static final PseudoClass DISABLED_CLASS = PseudoClass.getPseudoClass("disabled");
 
-    public void setField(F field) {
+    @Override
+	public void setField(F field) {
         if (this.field != null) {
             throw new IllegalStateException("Cannot change a control's field once set.");
         }
@@ -104,7 +106,8 @@ public abstract class SimpleControl<F extends Field<F>> extends GridPane impleme
     /**
      * {@inheritDoc}
      */
-    public void setupBindings() {
+    @Override
+	public void setupBindings() {
         idProperty().bind(field.idProperty());
     }
 

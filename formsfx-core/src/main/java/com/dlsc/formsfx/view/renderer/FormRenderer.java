@@ -1,8 +1,14 @@
 package com.dlsc.formsfx.view.renderer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.dlsc.formsfx.model.structure.BooleanField;
+import com.dlsc.formsfx.model.structure.DateField;
+import com.dlsc.formsfx.model.structure.DoubleField;
 
 /*-
  * ========================LICENSE_START=================================
@@ -25,7 +31,20 @@ import java.util.stream.Collectors;
  */
 
 import com.dlsc.formsfx.model.structure.Form;
+import com.dlsc.formsfx.model.structure.IntegerField;
+import com.dlsc.formsfx.model.structure.MultiSelectionField;
+import com.dlsc.formsfx.model.structure.PasswordField;
 import com.dlsc.formsfx.model.structure.Section;
+import com.dlsc.formsfx.model.structure.SingleSelectionField;
+import com.dlsc.formsfx.model.structure.StringField;
+import com.dlsc.formsfx.view.controls.SimpleBooleanControl;
+import com.dlsc.formsfx.view.controls.SimpleComboBoxControl;
+import com.dlsc.formsfx.view.controls.SimpleDateControl;
+import com.dlsc.formsfx.view.controls.SimpleDoubleControl;
+import com.dlsc.formsfx.view.controls.SimpleIntegerControl;
+import com.dlsc.formsfx.view.controls.SimpleListViewControl;
+import com.dlsc.formsfx.view.controls.SimplePasswordControl;
+import com.dlsc.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.formsfx.view.util.ViewMixin;
 
 import javafx.geometry.Insets;
@@ -38,6 +57,20 @@ import javafx.scene.layout.VBox;
  * @author Rinesch Murugathas
  */
 public class FormRenderer extends VBox implements ViewMixin {
+
+	private Map<Class<?>, Class<?>> controls = new HashMap<>();
+
+	{
+		// Default Controls
+		controls.put(BooleanField.class, SimpleBooleanControl.class);
+		controls.put(DateField.class, SimpleDateControl.class);
+		controls.put(DoubleField.class, SimpleDoubleControl.class);
+		controls.put(IntegerField.class, SimpleIntegerControl.class);
+		controls.put(MultiSelectionField.class, SimpleListViewControl.class);
+		controls.put(PasswordField.class, SimplePasswordControl.class);
+		controls.put(SingleSelectionField.class, SimpleComboBoxControl.class);
+		controls.put(StringField.class, SimpleTextControl.class);
+	}
 
     protected Form form;
 

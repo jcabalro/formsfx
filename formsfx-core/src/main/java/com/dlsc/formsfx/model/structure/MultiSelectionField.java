@@ -1,5 +1,10 @@
 package com.dlsc.formsfx.model.structure;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /*-
  * ========================LICENSE_START=================================
  * FormsFX
@@ -9,9 +14,9 @@ package com.dlsc.formsfx.model.structure;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,10 +30,7 @@ import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.validators.ValidationResult;
 import com.dlsc.formsfx.model.validators.Validator;
 import com.dlsc.formsfx.view.controls.SimpleListViewControl;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -228,7 +230,8 @@ public class MultiSelectionField<V> extends SelectionField<V, MultiSelectionFiel
     /**
      * {@inheritDoc}
      */
-    public void setBindingMode(BindingMode newValue) {
+    @Override
+	public void setBindingMode(BindingMode newValue) {
         if (BindingMode.CONTINUOUS.equals(newValue)) {
             selection.addListener(bindingModeListener);
         } else {
@@ -240,7 +243,8 @@ public class MultiSelectionField<V> extends SelectionField<V, MultiSelectionFiel
      * Stores the field's current selection in its persistent selection. This
      * stores the user's changes in the model.
      */
-    public void persist() {
+    @Override
+	public void persist() {
         if (!isValid()) {
             return;
         }
@@ -254,7 +258,8 @@ public class MultiSelectionField<V> extends SelectionField<V, MultiSelectionFiel
      * Sets the field's current selection to its persistent selection, thus
      * resetting any changes made by the user.
      */
-    public void reset() {
+    @Override
+	public void reset() {
         if (!hasChanged()) {
             return;
         }
@@ -267,7 +272,8 @@ public class MultiSelectionField<V> extends SelectionField<V, MultiSelectionFiel
     /**
      * {@inheritDoc}
      */
-    protected boolean validateRequired() {
+    @Override
+	protected boolean validateRequired() {
         return !isRequired() || (isRequired() && selection.size() > 0);
     }
 
@@ -278,7 +284,8 @@ public class MultiSelectionField<V> extends SelectionField<V, MultiSelectionFiel
      *
      * @return Returns whether the user selection is a valid value or not.
      */
-    public boolean validate() {
+    @Override
+	public boolean validate() {
 
         // Check all validation rules and collect any error messages.
 

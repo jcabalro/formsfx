@@ -1,5 +1,10 @@
 package com.dlsc.formsfx.model.structure;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /*-
  * ========================LICENSE_START=================================
  * FormsFX
@@ -9,9 +14,9 @@ package com.dlsc.formsfx.model.structure;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,10 +30,7 @@ import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.validators.ValidationResult;
 import com.dlsc.formsfx.model.validators.Validator;
 import com.dlsc.formsfx.view.controls.SimpleComboBoxControl;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -225,7 +227,8 @@ public class SingleSelectionField<V> extends SelectionField<V, SingleSelectionFi
     /**
      * {@inheritDoc}
      */
-    public void setBindingMode(BindingMode newValue) {
+    @Override
+	public void setBindingMode(BindingMode newValue) {
         if (BindingMode.CONTINUOUS.equals(newValue)) {
             selection.addListener(bindingModeListener);
         } else {
@@ -237,7 +240,8 @@ public class SingleSelectionField<V> extends SelectionField<V, SingleSelectionFi
      * Stores the field's current value in its persistent value. This stores
      * the user's changes in the model.
      */
-    public void persist() {
+    @Override
+	public void persist() {
         if (!isValid()) {
             return;
         }
@@ -251,7 +255,8 @@ public class SingleSelectionField<V> extends SelectionField<V, SingleSelectionFi
      * Sets the field's current value to its persistent value, thus resetting
      * any changes made by the user.
      */
-    public void reset() {
+    @Override
+	public void reset() {
         if (!hasChanged()) {
             return;
         }
@@ -264,7 +269,8 @@ public class SingleSelectionField<V> extends SelectionField<V, SingleSelectionFi
     /**
      * {@inheritDoc}
      */
-    protected boolean validateRequired() {
+    @Override
+	protected boolean validateRequired() {
         return !isRequired() || (isRequired() && selection.get() != null);
     }
 
@@ -275,7 +281,8 @@ public class SingleSelectionField<V> extends SelectionField<V, SingleSelectionFi
      *
      * @return Returns whether the user selection is a valid value or not.
      */
-    public boolean validate() {
+    @Override
+	public boolean validate() {
 
         // Check all validation rules and collect any error messages.
 

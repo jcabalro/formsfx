@@ -24,10 +24,10 @@ import com.dlsc.formsfx.model.structure.Element;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.structure.NodeElement;
-import com.dlsc.formsfx.view.controls.SimpleControl;
 import com.dlsc.formsfx.view.util.ViewMixin;
 
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -92,9 +92,9 @@ public abstract class GroupRendererBase<V extends Group> extends StackPane imple
 
             if (e instanceof Field) {
             	Field f = (Field) e;
-                SimpleControl c = f.getRenderer();
+                FieldRenderer c = f.getRenderer();
                 c.setField(f);
-                grid.add(c, currentColumnCount, currentRow, span, 1);
+                grid.add((Node) c, currentColumnCount, currentRow, span, 1);
             } else if (e instanceof NodeElement){
                 grid.add(((NodeElement)e).getNode(), currentColumnCount, currentRow, span, 1);
             }

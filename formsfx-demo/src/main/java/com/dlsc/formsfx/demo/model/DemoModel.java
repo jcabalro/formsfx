@@ -1,5 +1,8 @@
 package com.dlsc.formsfx.demo.model;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Group;
@@ -12,9 +15,6 @@ import com.dlsc.formsfx.model.validators.StringLengthValidator;
 import com.dlsc.formsfx.view.controls.SimpleCheckBoxControl;
 import com.dlsc.formsfx.view.controls.SimpleRadioButtonControl;
 import com.dlsc.formsfx.view.util.ColSpan;
-
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 /**
  * This class is used to create the form and holds all the necessary data. This

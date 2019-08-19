@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 import com.dlsc.formsfx.model.event.FieldEvent;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.util.TranslationService;
-import com.dlsc.formsfx.view.controls.SimpleControl;
+import com.dlsc.formsfx.view.renderer.FieldRenderer;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
@@ -150,7 +150,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      */
     protected TranslationService translationService;
 
-    protected SimpleControl<F> renderer;
+    protected FieldRenderer<F> renderer;
 
     protected final Map<EventType<FieldEvent>,List<EventHandler<? super FieldEvent>>> eventHandlers = new ConcurrentHashMap<>();
 
@@ -430,6 +430,18 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
     }
 
     /**
+     * Change de default renderer for this Field.
+     *
+     * @param renderer The new renderer.
+     * @return The current field to allow for chaining.
+     */
+    @SuppressWarnings("unchecked")
+	public F render(FieldRenderer<F> renderer) {
+    	this.renderer = renderer;
+    	return (F) this;
+    }
+
+    /**
      * Sets the required property to for the current field without providing an
      * error message.
      *
@@ -637,20 +649,6 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
     }
 
     /**
-     * Sets the control that renders this field.
-     *
-     * @param newValue
-     *              The new control to render the field.
-     *
-     * @return Returns the current field to allow for chaining.
-     */
-    @SuppressWarnings("unchecked")
-    public F render(SimpleControl<F> newValue) {
-        renderer = newValue;
-        return (F) this;
-    }
-
-    /**
      * Activates or deactivates the {@code bindingModeListener} based on the
      * given {@code BindingMode}.
      *
@@ -810,7 +808,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
         return translationService != null;
     }
 
-    public SimpleControl<F> getRenderer() {
+	public FieldRenderer<F> getRenderer() {
         return renderer;
     }
 
@@ -885,7 +883,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
             }
         }
     }
-  
+
     public Node getLabelDescription() {
         return labelDescription;
     }
