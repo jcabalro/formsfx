@@ -1,3 +1,25 @@
 .idea
 /target
 *.iml
+/.settings
+.project
+/Servers/
+/.metadata/
+/.recommenders/
+
+# /formsfx-core
+/formsfx-core/.classpath
+/formsfx-core/.project
+/formsfx-core/.settings
+/formsfx-core/target
+/formsfx-core/.pmd
+/formsfx-core/.checkstyle
+
+# /formsfx-demo/
+/formsfx-demo/.classpath
+/formsfx-demo/.project
+/formsfx-demo/.settings
+/formsfx-demo/target
+/formsfx-demo/.pmd
+/formsfx-demo/.checkstyle
+/RemoteSystemsTempFiles/
