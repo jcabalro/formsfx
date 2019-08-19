@@ -9,9 +9,9 @@ package com.dlsc.formsfx.model.event;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,6 +21,7 @@ package com.dlsc.formsfx.model.event;
  */
 
 import com.dlsc.formsfx.model.structure.Field;
+
 import javafx.event.Event;
 import javafx.event.EventType;
 
@@ -30,7 +31,13 @@ import javafx.event.EventType;
  * @author Andres Almiray
  */
 public final class FieldEvent extends Event {
+
     /**
+	 * Serial Version UID.
+	 */
+	private static final long serialVersionUID = 2660706940498766263L;
+
+	/**
      * When a {@code Field} is persisted.
      */
     public static final EventType<FieldEvent> EVENT_FIELD_PERSISTED = new EventType<>(ANY, "EVENT_FIELD_PERSISTED");
@@ -43,25 +50,25 @@ public final class FieldEvent extends Event {
     /**
      * Creates a new instance of {@code FieldEvent} with event type set to {@code EVENT_FIELD_PERSISTED}.
      */
-    public static FieldEvent fieldPersistedEvent(Field field) {
+    public static FieldEvent fieldPersistedEvent(Field<?> field) {
         return new FieldEvent(EVENT_FIELD_PERSISTED, field);
     }
 
     /**
      * Creates a new instance of {@code FieldEvent} with event type set to {@code EVENT_FIELD_RESET}.
      */
-    public static FieldEvent fieldResetEvent(Field field) {
+    public static FieldEvent fieldResetEvent(Field<?> field) {
         return new FieldEvent(EVENT_FIELD_RESET, field);
     }
 
-    private final Field field;
+    private final Field<?> field;
 
-    private FieldEvent(EventType<? extends Event> eventType, Field field) {
+    private FieldEvent(EventType<? extends Event> eventType, Field<?> field) {
         super(eventType);
         this.field = field;
     }
 
-    public final Field getField() {
+    public final Field<?> getField() {
         return field;
     }
 }

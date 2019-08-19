@@ -30,7 +30,13 @@ import javafx.event.EventType;
  * @author Andres Almiray
  */
 public final class FormEvent extends Event {
+	
     /**
+	 * Serial Version UID. 
+	 */
+	private static final long serialVersionUID = -3371273959081703996L;
+
+	/**
      * When a {@code Form} is persisted.
      */
     public static final EventType<FormEvent> EVENT_FORM_PERSISTED = new EventType<>(ANY, "EVENT_FORM_PERSISTED");

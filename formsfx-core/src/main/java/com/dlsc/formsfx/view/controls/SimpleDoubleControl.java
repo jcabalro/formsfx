@@ -21,6 +21,7 @@ package com.dlsc.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.DoubleField;
+
 import javafx.scene.control.SpinnerValueFactory;
 
 /**
@@ -29,7 +30,7 @@ import javafx.scene.control.SpinnerValueFactory;
  * @author Rinesch Murugathas
  * @author Sacha Schmid
  */
-public class SimpleDoubleControl extends SimpleNumberControl<DoubleField, Double> {
+public class SimpleDoubleControl extends SimpleNumberControl<DoubleField, Number> {
 
     /**
      * {@inheritDoc}
@@ -39,7 +40,28 @@ public class SimpleDoubleControl extends SimpleNumberControl<DoubleField, Double
         super.initializeParts();
 
         getStyleClass().add("simple-double-control");
-        editableSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-Double.MAX_VALUE, Double.MAX_VALUE, field.getValue()));
+        
+        SpinnerValueFactory<Number> f = new SpinnerValueFactory<Number>() {
+
+          DoubleSpinnerValueFactory vf;
+          
+          {
+            vf = new SpinnerValueFactory.DoubleSpinnerValueFactory(-Double.MAX_VALUE, Double.MAX_VALUE, (Double) field.getValue());
+          }
+          
+          @Override
+          public void decrement(int steps) {
+            vf.decrement(steps);
+            setValue(vf.getValue());
+          }
+
+          @Override
+          public void increment(int steps) {
+            vf.increment(steps);
+            setValue(vf.getValue());
+          }          
+        };
+        editableSpinner.setValueFactory(f);
     }
 
     /**

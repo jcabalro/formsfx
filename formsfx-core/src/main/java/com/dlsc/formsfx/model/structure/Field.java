@@ -1,5 +1,14 @@
 package com.dlsc.formsfx.model.structure;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
+
 /*-
  * ========================LICENSE_START=================================
  * FormsFX
@@ -24,29 +33,26 @@ import com.dlsc.formsfx.model.event.FieldEvent;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.formsfx.view.controls.SimpleControl;
+
 import javafx.beans.InvalidationListener;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import java.util.stream.Collectors;
 
 /**
  * This class provides the base implementation for a FormsFX field. It is not
@@ -432,6 +438,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @return Returns the current field to allow for chaining.
      */
+    @SuppressWarnings("unchecked")
     public F required(boolean newValue) {
         required.set(newValue);
         validate();
@@ -447,6 +454,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @return Returns the current field to allow for chaining.
      */
+    @SuppressWarnings("unchecked")
     public F required(String errorMessage) {
         required.set(true);
 
@@ -469,6 +477,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @return Returns the current field to allow for chaining.
      */
+    @SuppressWarnings("unchecked")
     public F editable(boolean newValue) {
         editable.set(newValue);
         return (F) this;
@@ -485,6 +494,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @return Returns the current field to allow for chaining.
      */
+    @SuppressWarnings("unchecked")
     public F label(String newValue) {
         if (isI18N()) {
             labelKey.set(newValue);
@@ -504,6 +514,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @return Returns the current field to allow for chaining.
      */
+    @SuppressWarnings("unchecked")
     public F labelDescription(Node newValue) {
         labelDescription = newValue;
         if (labelDescription != null) {
@@ -523,6 +534,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @return Returns the current field to allow for chaining.
      */
+    @SuppressWarnings("unchecked")
     public F labelDescription(String newValue) {
         if(isI18N()) {
             labelDescriptionKey.set(newValue);
@@ -542,6 +554,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @return Returns the current field to allow for chaining.
      */
+    @SuppressWarnings("unchecked")
     public F valueDescription(Node newValue) {
         valueDescription = newValue;
         if (valueDescription != null) {
@@ -561,6 +574,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @return Returns the current field to allow for chaining.
      */
+    @SuppressWarnings("unchecked")
     public F valueDescription(String newValue) {
         if(isI18N()) {
             valueDescriptionKey.set(newValue);
@@ -589,6 +603,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @return Returns the current field to allow for chaining.
      */
+    @SuppressWarnings("unchecked")
     public F tooltip(String newValue) {
         if (isI18N()) {
             tooltipKey.set(newValue);
@@ -610,6 +625,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @return Returns the current field to allow for chaining.
      */
+    @SuppressWarnings("unchecked")
     public F placeholder(String newValue) {
         if (isI18N()) {
             placeholderKey.set(newValue);
@@ -628,6 +644,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @return Returns the current field to allow for chaining.
      */
+    @SuppressWarnings("unchecked")
     public F render(SimpleControl<F> newValue) {
         renderer = newValue;
         return (F) this;
@@ -815,7 +832,8 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @throws NullPointerException if either event type or handler are {@code null}.
      */
-    public Field addEventHandler(EventType<FieldEvent> eventType, EventHandler<? super FieldEvent> eventHandler) {
+    @SuppressWarnings("unchecked")
+    public F addEventHandler(EventType<FieldEvent> eventType, EventHandler<? super FieldEvent> eventHandler) {
         if (eventType == null) {
             throw new NullPointerException("Argument eventType must not be null");
         }
@@ -825,7 +843,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
 
         this.eventHandlers.computeIfAbsent(eventType, k -> new CopyOnWriteArrayList<>()).add(eventHandler);
 
-        return this;
+        return (F) this;
     }
 
     /**
@@ -839,7 +857,8 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      *
      * @throws NullPointerException if either event type or handler are {@code null}.
      */
-    public Field removeEventHandler(EventType<FieldEvent> eventType, EventHandler<? super FieldEvent> eventHandler) {
+    @SuppressWarnings("unchecked")
+    public F removeEventHandler(EventType<FieldEvent> eventType, EventHandler<? super FieldEvent> eventHandler) {
         if (eventType == null) {
             throw new NullPointerException("Argument eventType must not be null");
         }
@@ -852,7 +871,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
             list.remove(eventHandler);
         }
 
-        return this;
+        return (F) this;
     }
 
     protected void fireEvent(FieldEvent event) {

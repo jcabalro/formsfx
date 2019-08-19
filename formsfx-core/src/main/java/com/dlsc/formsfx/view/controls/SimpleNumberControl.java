@@ -21,6 +21,8 @@ package com.dlsc.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.DataField;
+
+import javafx.beans.property.Property;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
@@ -36,7 +38,7 @@ import javafx.scene.layout.StackPane;
  * @author Rinesch Murugathas
  * @author Sacha Schmid
  */
-public abstract class SimpleNumberControl<F extends DataField, D extends Number> extends SimpleControl<F> {
+public abstract class SimpleNumberControl<F extends DataField<Property<D>, D, F>, D extends Number> extends SimpleControl<F> {
 
     /**
      * This StackPane is needed for achieving the readonly effect by putting
@@ -141,6 +143,8 @@ public abstract class SimpleNumberControl<F extends DataField, D extends Number>
                     break;
                 case DOWN:
                     editableSpinner.decrement(1);
+                    break;
+                default:
                     break;
             }
         });

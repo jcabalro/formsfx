@@ -27,10 +27,10 @@ package com.dlsc.formsfx.model.validators;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public class DoubleRangeValidator extends CustomValidator<Double> {
+public class DoubleRangeValidator extends CustomValidator<Number> {
 
     private DoubleRangeValidator(double min, double max, String errorMessage) {
-        super(input -> input >= min && input <= max, errorMessage);
+        super(input -> (double) input >= min && (double) input <= max, errorMessage);
     }
 
     /**

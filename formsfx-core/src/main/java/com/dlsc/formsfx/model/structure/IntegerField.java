@@ -22,8 +22,8 @@ package com.dlsc.formsfx.model.structure;
 
 
 import com.dlsc.formsfx.view.controls.SimpleIntegerControl;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+
+import javafx.beans.property.Property;
 
 /**
  * This class provides an implementation of a {@link Field} containing a
@@ -32,7 +32,7 @@ import javafx.beans.property.SimpleIntegerProperty;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public class IntegerField extends DataField<IntegerProperty, Integer, IntegerField> {
+public class IntegerField extends DataField<Property<Number>, Number, IntegerField> {
 
     /**
      * The constructor of {@code IntegerField}.
@@ -44,10 +44,10 @@ public class IntegerField extends DataField<IntegerProperty, Integer, IntegerFie
      *              The property that is used to store the latest persisted
      *              value of the field.
      */
-    protected IntegerField(SimpleIntegerProperty valueProperty, SimpleIntegerProperty persistentValueProperty) {
+    protected IntegerField(Property<Number> valueProperty, Property<Number> persistentValueProperty) {
         super(valueProperty, persistentValueProperty);
 
-        stringConverter = new AbstractStringConverter<Integer>() {
+        stringConverter = new AbstractStringConverter<Number>() {
             @Override
             public Integer fromString(String string) {
                 return Integer.parseInt(string);

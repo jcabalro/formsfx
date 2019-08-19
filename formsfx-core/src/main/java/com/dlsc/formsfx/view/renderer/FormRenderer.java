@@ -1,5 +1,9 @@
 package com.dlsc.formsfx.view.renderer;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /*-
  * ========================LICENSE_START=================================
  * FormsFX
@@ -9,9 +13,9 @@ package com.dlsc.formsfx.view.renderer;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,12 +27,9 @@ package com.dlsc.formsfx.view.renderer;
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Section;
 import com.dlsc.formsfx.view.util.ViewMixin;
+
 import javafx.geometry.Insets;
 import javafx.scene.layout.VBox;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This class is used to render a form.
@@ -39,7 +40,9 @@ import java.util.stream.Collectors;
 public class FormRenderer extends VBox implements ViewMixin {
 
     protected Form form;
-    protected List<GroupRendererBase> sections = new ArrayList<>();
+
+    @SuppressWarnings("rawtypes")
+	protected List<GroupRendererBase> sections = new ArrayList<>();
 
     /**
      * This is the constructor to pass over data.

@@ -27,10 +27,10 @@ package com.dlsc.formsfx.model.validators;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public class IntegerRangeValidator extends CustomValidator<Integer> {
+public class IntegerRangeValidator extends CustomValidator<Number> {
 
     private IntegerRangeValidator(int min, int max, String errorMessage) {
-        super(input -> input >= min && input <= max, errorMessage);
+        super(input -> (int) input >= min && (int) input <= max, errorMessage);
     }
 
     /**

@@ -21,6 +21,7 @@ package com.dlsc.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.IntegerField;
+
 import javafx.scene.control.SpinnerValueFactory;
 
 /**
@@ -29,7 +30,7 @@ import javafx.scene.control.SpinnerValueFactory;
  * @author Rinesch Murugathas
  * @author Sacha Schmid
  */
-public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Integer> {
+public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Number> {
 
     /**
      * {@inheritDoc}
@@ -39,7 +40,27 @@ public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Inte
         super.initializeParts();
 
         getStyleClass().addAll("simple-integer-control");
-        editableSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(Integer.MIN_VALUE, Integer.MAX_VALUE, field.getValue()));
+        SpinnerValueFactory<Number> f = new SpinnerValueFactory<Number>() {
+
+          IntegerSpinnerValueFactory vf;
+          
+          {
+            vf = new SpinnerValueFactory.IntegerSpinnerValueFactory(Integer.MIN_VALUE, Integer.MAX_VALUE, (Integer) field.getValue());
+          }
+          
+          @Override
+          public void decrement(int steps) {
+            vf.decrement(steps);
+            setValue(vf.getValue());
+          }
+
+          @Override
+          public void increment(int steps) {
+            vf.increment(steps);
+            setValue(vf.getValue());
+          }          
+        };
+        editableSpinner.setValueFactory(f);
     }
 
     /**

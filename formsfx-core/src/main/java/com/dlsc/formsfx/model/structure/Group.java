@@ -1,5 +1,12 @@
 package com.dlsc.formsfx.model.structure;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 /*-
  * ========================LICENSE_START=================================
  * FormsFX
@@ -9,9 +16,9 @@ package com.dlsc.formsfx.model.structure;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,17 +30,11 @@ package com.dlsc.formsfx.model.structure;
 
 import com.dlsc.formsfx.model.event.GroupEvent;
 import com.dlsc.formsfx.model.util.TranslationService;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * A group is the intermediate unit in a form. It is used to group form
@@ -45,7 +46,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class Group {
 
-    protected final List<Element> elements = new ArrayList<>();
+    @SuppressWarnings("rawtypes")
+	protected final List<Element> elements = new ArrayList<>();
 
     /**
      * The group acts as a proxy for its contained elements' {@code changed}
@@ -72,7 +74,8 @@ public class Group {
      *              A varargs list of elements that are contained in this
      *              group.
      */
-    protected Group(Element... elements) {
+    @SuppressWarnings("rawtypes")
+	protected Group(Element... elements) {
         Collections.addAll(this.elements, elements);
 
         // If any of the elements are marked as changed, the group is updated
@@ -103,7 +106,8 @@ public class Group {
      *
      * @return Returns a new {@code Group}.
      */
-    public static Group of(Element... elements) {
+    @SuppressWarnings("rawtypes")
+	public static Group of(Element... elements) {
         return new Group(elements);
     }
 
@@ -126,7 +130,7 @@ public class Group {
 
         elements.stream()
             .filter(e -> e instanceof Field)
-            .map(e -> (Field) e)
+            .map(e -> (Field<?>) e)
             .forEach(f -> f.translate(translationService));
     }
 
@@ -169,7 +173,7 @@ public class Group {
     private void setChangedProperty() {
         changed.setValue(elements.stream()
             .filter(e -> e instanceof Field)
-            .map(e -> (Field) e)
+            .map(e -> (Field<?>) e)
             .anyMatch(Field::hasChanged));
     }
 
@@ -180,11 +184,12 @@ public class Group {
     private void setValidProperty() {
         valid.setValue(elements.stream()
             .filter(e -> e instanceof Field)
-            .map(e -> (Field) e)
+            .map(e -> (Field<?>) e)
             .allMatch(Field::isValid));
     }
 
-    public List<Element> getElements() {
+    @SuppressWarnings("rawtypes")
+	public List<Element> getElements() {
         return elements;
     }
 

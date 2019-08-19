@@ -9,9 +9,9 @@ package com.dlsc.formsfx.model.structure;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,6 +21,7 @@ package com.dlsc.formsfx.model.structure;
  */
 
 import com.dlsc.formsfx.model.util.TranslationService;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -58,7 +59,8 @@ public class Section extends Group {
     /**
      * {@inheritDoc}
      */
-    private Section(Element... elements) {
+    @SuppressWarnings("rawtypes")
+	private Section(Element... elements) {
         super(elements);
 
         // Whenever the title's key changes, update the displayed value based
@@ -75,7 +77,8 @@ public class Section extends Group {
      *
      * @return Returns a new {@code Section}.
      */
-    public static Section of(Element... elements) {
+    @SuppressWarnings("rawtypes")
+	public static Section of(Element... elements) {
         return new Section(elements);
     }
 
@@ -103,7 +106,8 @@ public class Section extends Group {
     /**
      * {@inheritDoc}
      */
-    protected void translate(TranslationService newValue) {
+    @Override
+	protected void translate(TranslationService newValue) {
         translationService = newValue;
 
         if (!isI18N()) {
@@ -118,7 +122,7 @@ public class Section extends Group {
 
         elements.stream()
             .filter(e -> e instanceof Field)
-            .map(e -> (Field) e)
+            .map(e -> (Field<?>) e)
             .forEach(f -> f.translate(translationService));
     }
 

@@ -1,5 +1,10 @@
 package com.dlsc.formsfx.model.structure;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /*-
  * ========================LICENSE_START=================================
  * FormsFX
@@ -9,9 +14,9 @@ package com.dlsc.formsfx.model.structure;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,17 +31,13 @@ import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.formsfx.model.util.ValueTransformer;
 import com.dlsc.formsfx.model.validators.ValidationResult;
 import com.dlsc.formsfx.model.validators.Validator;
+
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.util.StringConverter;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * {@code DataField} holds a single value. This value can be represented and
@@ -45,8 +46,9 @@ import java.util.stream.Collectors;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public abstract class DataField<P extends Property, V, F extends Field<F>> extends Field<F> {
-  
+@SuppressWarnings("deprecation")
+public abstract class DataField<P extends Property<V>, V, F extends Field<F>> extends Field<F> {
+
     /**
      * Every field tracks its value in multiple ways.
      *
@@ -96,7 +98,9 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
     /**
      * This listener updates the field when the external binding changes.
      */
-    private final InvalidationListener externalBindingListener = (observable) -> userInput.setValue(stringConverter.toString((V) ((P) observable).getValue()));
+    @SuppressWarnings("unchecked")
+	private final InvalidationListener externalBindingListener = (observable) ->
+    	userInput.setValue(stringConverter.toString(((P) observable).getValue()));
 
     /**
      * Internal constructor for the {@code DataField} class. To create new
@@ -123,7 +127,7 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
         // until Field::persist or Field::reset are called or the value is back
         // to the persistent value.
 
-        changed.bind(Bindings.createBooleanBinding(() -> !stringConverter.toString((V) persistentValue.getValue()).equals(userInput.getValue()), userInput, persistentValue));
+        changed.bind(Bindings.createBooleanBinding(() -> !stringConverter.toString(persistentValue.getValue()).equals(userInput.getValue()), userInput, persistentValue));
 
         // Whenever one of the translatable elements' keys change, update the
         // displayed value based on the new translation.
@@ -148,7 +152,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
     }
 
     private static class StringConverterAdapter<V> extends AbstractStringConverter<V> {
-        private final ValueTransformer<V> valueTransformer;
+
+		private final ValueTransformer<V> valueTransformer;
 
         public StringConverterAdapter(ValueTransformer<V> valueTransformer) {
             this.valueTransformer = valueTransformer;
@@ -169,7 +174,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
      *
      * @return Returns the current field to allow for chaining.
      */
-    public F format(StringConverter<V> newValue) {
+    @SuppressWarnings("unchecked")
+	public F format(StringConverter<V> newValue) {
         stringConverter = newValue;
         validate();
         return (F) this;
@@ -188,7 +194,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
      *
      * @return Returns the current field to allow for chaining.
      */
-    public F format(StringConverter<V> newValue, String errorMessage) {
+    @SuppressWarnings("unchecked")
+	public F format(StringConverter<V> newValue, String errorMessage) {
         stringConverter = newValue;
 
         if (isI18N()) {
@@ -211,7 +218,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
      * @return Returns the current field to allow for chaining.
      * @deprecated Use format(StringConverter) instead
      */
-    @Deprecated
+	@Deprecated
+    @SuppressWarnings("unchecked")
     public F format(ValueTransformer<V> newValue) {
         stringConverter = new StringConverterAdapter<>(newValue);
         validate();
@@ -232,7 +240,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
      * @return Returns the current field to allow for chaining.
      * @deprecated Use format(StringConverter, errorMessage) instead
      */
-    @Deprecated
+	@Deprecated
+    @SuppressWarnings("unchecked")
     public F format(ValueTransformer<V> newValue, String errorMessage) {
         stringConverter = new StringConverterAdapter<>(newValue);
 
@@ -256,7 +265,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
      *
      * @return Returns the current field to allow for chaining.
      */
-    public F format(String errorMessage) {
+    @SuppressWarnings("unchecked")
+	public F format(String errorMessage) {
         if (isI18N()) {
             formatErrorKey.set(errorMessage);
         } else {
@@ -278,7 +288,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
      *
      * @return Returns the current field to allow for chaining.
      */
-    @SafeVarargs
+    @SuppressWarnings("unchecked")
+	@SafeVarargs
     public final F validate(Validator<V>... newValue) {
         validators.clear();
         Collections.addAll(validators, newValue);
@@ -295,7 +306,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
      *
      * @return Returns the current field to allow for chaining.
      */
-    public F bind(P binding) {
+    @SuppressWarnings("unchecked")
+	public F bind(P binding) {
         persistentValue.bindBidirectional(binding);
         binding.addListener(externalBindingListener);
 
@@ -310,7 +322,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
      *
      * @return Returns the current field to allow for chaining.
      */
-    public F unbind(P binding) {
+    @SuppressWarnings("unchecked")
+	public F unbind(P binding) {
         persistentValue.unbindBidirectional(binding);
         binding.removeListener(externalBindingListener);
 
@@ -320,7 +333,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
     /**
      * {@inheritDoc}
      */
-    public void setBindingMode(BindingMode newValue) {
+    @Override
+	public void setBindingMode(BindingMode newValue) {
         if (BindingMode.CONTINUOUS.equals(newValue)) {
             value.addListener(bindingModeListener);
         } else {
@@ -332,7 +346,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
      * Stores the field's current value in its persistent value. This stores
      * the user's changes in the model.
      */
-    public void persist() {
+    @Override
+	public void persist() {
         if (!isValid()) {
             return;
         }
@@ -346,12 +361,13 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
      * Sets the field's current value to its persistent value, thus resetting
      * any changes made by the user.
      */
-    public void reset() {
+    @Override
+	public void reset() {
         if (!hasChanged()) {
             return;
         }
 
-        userInput.setValue(stringConverter.toString((V) persistentValue.getValue()));
+        userInput.setValue(stringConverter.toString(persistentValue.getValue()));
     }
 
     /**
@@ -373,7 +389,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
      *
      * @return Returns whether the user input is a valid value or not.
      */
-    public boolean validate() {
+    @Override
+	public boolean validate() {
         String newValue = userInput.getValue();
 
         if (!validateRequired(newValue)) {
@@ -436,7 +453,8 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
     /**
      * {@inheritDoc}
      */
-    public void translate(TranslationService service) {
+    @Override
+	public void translate(TranslationService service) {
         super.translate(service);
 
         updateElement(formatError, formatErrorKey);
@@ -452,7 +470,7 @@ public abstract class DataField<P extends Property, V, F extends Field<F>> exten
     }
 
     public V getValue() {
-        return (V) value.getValue();
+        return value.getValue();
     }
 
     public P valueProperty() {

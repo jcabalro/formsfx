@@ -1,5 +1,13 @@
 package com.dlsc.formsfx.model.structure;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
+
 /*-
  * ========================LICENSE_START=================================
  * FormsFX
@@ -9,9 +17,9 @@ package com.dlsc.formsfx.model.structure;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,6 +31,7 @@ package com.dlsc.formsfx.model.structure;
 import com.dlsc.formsfx.model.event.FormEvent;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.util.TranslationService;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -31,14 +40,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
 
 /**
  * A form is the containing unit for sections and elements and is used to bring
@@ -268,19 +269,20 @@ public class Form {
         return groups;
     }
 
-    public List<Element> getElements() {
+    public <E extends Element<?>> List<E> getElements() {
         return groups.stream()
                 .map(Group::getElements)
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
     }
 
-    public List<Field> getFields() {
+    @SuppressWarnings("unchecked")
+	public <F extends Field<?>> List<F> getFields() {
         return groups.stream()
             .map(Group::getElements)
             .flatMap(List::stream)
             .filter(e -> e instanceof Field)
-            .map(e -> (Field) e)
+            .map(e -> (F) e)
             .collect(Collectors.toList());
     }
 

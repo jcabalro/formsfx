@@ -22,6 +22,7 @@ package com.dlsc.formsfx.view.controls;
 
 import com.dlsc.formsfx.model.structure.MultiSelectionField;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -54,6 +55,7 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void initializeParts() {
         super.initializeParts();
@@ -62,7 +64,7 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
 
         fieldLabel = new Label(field.labelProperty().getValue());
 
-        listView.setItems(field.getItems());
+        listView.setItems((ObservableList<String>) field.getItems());
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         for (int i = 0; i < field.getItems().size(); i++) {
@@ -114,11 +116,12 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void setupValueChangedListeners() {
         super.setupValueChangedListeners();
 
-        field.itemsProperty().addListener((observable, oldValue, newValue) -> listView.setItems(field.getItems()));
+        field.itemsProperty().addListener((observable, oldValue, newValue) -> listView.setItems((ObservableList<String>) field.getItems()));
 
         field.selectionProperty().addListener((observable, oldValue, newValue) -> {
             if (preventUpdate) {

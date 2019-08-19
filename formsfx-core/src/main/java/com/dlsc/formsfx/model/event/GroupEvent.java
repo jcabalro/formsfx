@@ -9,9 +9,9 @@ package com.dlsc.formsfx.model.event;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,6 +21,7 @@ package com.dlsc.formsfx.model.event;
  */
 
 import com.dlsc.formsfx.model.structure.Group;
+
 import javafx.event.Event;
 import javafx.event.EventType;
 
@@ -30,7 +31,13 @@ import javafx.event.EventType;
  * @author Andres Almiray
  */
 public final class GroupEvent extends Event {
+
     /**
+	 * Serial Version UID.
+	 */
+	private static final long serialVersionUID = -6648088286997049856L;
+
+	/**
      * When a {@code Group} is persisted.
      */
     public static final EventType<GroupEvent> EVENT_GROUP_PERSISTED = new EventType<>(ANY, "EVENT_GROUP_PERSISTED");

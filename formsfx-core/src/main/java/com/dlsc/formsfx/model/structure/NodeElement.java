@@ -9,9 +9,9 @@ package com.dlsc.formsfx.model.structure;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,11 +25,11 @@ import javafx.scene.Node;
 /**
  * @author Andres Almiray
  */
-public class NodeElement<N extends Node> extends Element {
+public class NodeElement<N extends Node> extends Element<NodeElement<N>> {
     protected N node;
 
     public static <T extends Node> NodeElement<T> of(T node) {
-        return new NodeElement(node);
+        return new NodeElement<T>(node);
     }
 
     protected NodeElement(N node) {

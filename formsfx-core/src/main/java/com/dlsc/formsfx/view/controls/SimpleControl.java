@@ -38,7 +38,7 @@ import javafx.scene.layout.GridPane;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public abstract class SimpleControl<F extends Field> extends GridPane implements ViewMixin {
+public abstract class SimpleControl<F extends Field<F>> extends GridPane implements ViewMixin {
 
     /**
      * This is the Field that is used for binding and update styling changes.

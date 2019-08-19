@@ -9,9 +9,9 @@ package com.dlsc.formsfx.view.renderer;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,6 +26,7 @@ import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.structure.NodeElement;
 import com.dlsc.formsfx.view.controls.SimpleControl;
 import com.dlsc.formsfx.view.util.ViewMixin;
+
 import javafx.geometry.Insets;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -60,7 +61,8 @@ public abstract class GroupRendererBase<V extends Group> extends StackPane imple
     /**
      * {@inheritDoc}
      */
-    @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
     public void layoutParts() {
         int COLUMN_COUNT = 12;
 
@@ -80,7 +82,7 @@ public abstract class GroupRendererBase<V extends Group> extends StackPane imple
         // Add the controls in the GridPane in a 12-column layout. If a control
         // takes up too much horizontal space, wrap it to the next row.
 
-        for (Element e : element.getElements()) {
+        for (Element<?> e : element.getElements()) {
             int span = e.getSpan();
 
             if (currentColumnCount + span > COLUMN_COUNT) {
@@ -89,10 +91,9 @@ public abstract class GroupRendererBase<V extends Group> extends StackPane imple
             }
 
             if (e instanceof Field) {
-                Field f = (Field) e;
+            	Field f = (Field) e;
                 SimpleControl c = f.getRenderer();
                 c.setField(f);
-
                 grid.add(c, currentColumnCount, currentRow, span, 1);
             } else if (e instanceof NodeElement){
                 grid.add(((NodeElement)e).getNode(), currentColumnCount, currentRow, span, 1);
