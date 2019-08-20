@@ -33,9 +33,9 @@ import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.structure.Section;
-import com.dlsc.formsfx.view.controls.SimpleCheckBoxControl;
-import com.dlsc.formsfx.view.controls.SimpleRadioButtonControl;
-import com.dlsc.formsfx.view.controls.SimpleTextControl;
+import com.dlsc.formsfx.view.controls.CheckboxListRenderer;
+import com.dlsc.formsfx.view.controls.RadioButtonRenderer;
+import com.dlsc.formsfx.view.controls.TextRenderer;
 
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
@@ -66,20 +66,20 @@ public class RendererTest extends ApplicationTest {
                 Field.ofStringType("").span(7),
                 Field.ofBooleanType(false).span(8),
                 Field.ofMultiSelectionType(Arrays.asList(1, 2, 3), Collections.singletonList(1)),
-                Field.ofSingleSelectionType(Arrays.asList(1, 2, 3), 1).render(new SimpleRadioButtonControl<>())
+                Field.ofSingleSelectionType(Arrays.asList(1, 2, 3), 1).render(new RadioButtonRenderer<>())
         );
         GroupRenderer r = new GroupRenderer(g);
 
         Assert.assertTrue(r.getChildren().get(0) instanceof GridPane);
-        Assert.assertTrue(((GridPane) r.getChildren().get(0)).getChildren().get(0) instanceof SimpleTextControl);
+        Assert.assertTrue(((GridPane) r.getChildren().get(0)).getChildren().get(0) instanceof TextRenderer);
     }
 
     @Test
     public void sectionTest() {
         Section s = Section.of(
-                Field.ofDoubleType(2.0),
-                Field.ofIntegerType(1),
-                Field.ofMultiSelectionType(Arrays.asList(1, 2, 3), Collections.singletonList(1)).render(new SimpleCheckBoxControl<>()),
+                Field.ofNumber(2.0),
+                Field.ofNumber(1),
+                Field.ofMultiSelectionType(Arrays.asList(1, 2, 3), Collections.singletonList(1)).render(new CheckboxListRenderer<>()),
                 Field.ofSingleSelectionType(Arrays.asList(1, 2, 3), 1)
         );
         SectionRenderer r = new SectionRenderer(s);

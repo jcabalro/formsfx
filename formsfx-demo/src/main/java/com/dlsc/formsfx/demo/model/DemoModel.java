@@ -12,8 +12,8 @@ import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
 import com.dlsc.formsfx.model.validators.IntegerRangeValidator;
 import com.dlsc.formsfx.model.validators.RegexValidator;
 import com.dlsc.formsfx.model.validators.StringLengthValidator;
-import com.dlsc.formsfx.view.controls.SimpleCheckBoxControl;
-import com.dlsc.formsfx.view.controls.SimpleRadioButtonControl;
+import com.dlsc.formsfx.view.controls.CheckboxListRenderer;
+import com.dlsc.formsfx.view.controls.RadioButtonRenderer;
 import com.dlsc.formsfx.view.util.ColSpan;
 
 /**
@@ -89,7 +89,7 @@ public final class DemoModel {
                                 .label("currency_long_label")
                                 .placeholder("currency_long_placeholder")
                                 .span(ColSpan.HALF),
-                        Field.ofDoubleType(country.areaProperty())
+                        Field.ofNumber(country.areaProperty())
                                 .label("area_label")
                                 .format("format_error_message")
                                 .placeholder("area_placeholder")
@@ -113,7 +113,7 @@ public final class DemoModel {
                                 .required("required_error_message")
                                 .label("driving_label")
                                 .span(ColSpan.HALF)
-                                .render(new SimpleRadioButtonControl<>()),
+                                .render(new RadioButtonRenderer<>()),
                         Field.ofStringType(country.timeZoneProperty())
                                 .label("time_zone_label")
                                 .placeholder("time_zone_placeholder")
@@ -131,7 +131,7 @@ public final class DemoModel {
                                 .required("required_error_message")
                                 .tooltip("capital_tooltip")
                                 .span(ColSpan.HALF),
-                        Field.ofIntegerType(country.populationProperty())
+                        Field.ofNumber(country.populationProperty())
                                 .label("population_label")
                                 .format("format_error_message")
                                 .placeholder("population_placeholder")
@@ -142,7 +142,7 @@ public final class DemoModel {
                                 .label("continent_label")
                                 .required("required_error_message")
                                 .span(ColSpan.HALF)
-                                .render(new SimpleCheckBoxControl<>()),
+                                .render(new CheckboxListRenderer<>()),
                         Field.ofMultiSelectionType(country.allCitiesProperty(), country.germanCitiesProperty())
                                 .label("german_cities_label")
                                 .span(ColSpan.HALF),

@@ -37,7 +37,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -54,16 +53,16 @@ public class SimpleControlTest extends ApplicationTest {
         MultiSelectionField<Integer> mf = Field.ofMultiSelectionType(Arrays.asList(1, 2, 3), Arrays.asList(1, 2));
         SingleSelectionField<Integer> sf = Field.ofSingleSelectionType(Arrays.asList(1, 2, 3), 1);
 
-        SimpleCheckBoxControl<Integer> cb = new SimpleCheckBoxControl<>();
+        CheckboxListRenderer<Integer> cb = new CheckboxListRenderer<>();
         cb.setField(mf);
 
-        SimpleListViewControl<Integer> lv = new SimpleListViewControl<>();
+        ListViewRenderer<Integer> lv = new ListViewRenderer<>();
         lv.setField(mf);
 
-        SimpleRadioButtonControl<Integer> rb = new SimpleRadioButtonControl<>();
+        RadioButtonRenderer<Integer> rb = new RadioButtonRenderer<>();
         rb.setField(sf);
 
-        SimpleComboBoxControl<Integer> cmb = new SimpleComboBoxControl<>();
+        ComboBoxRenderer<Integer> cmb = new ComboBoxRenderer<>();
         cmb.setField(sf);
 
         Assert.assertEquals(3, ((VBox) cb.getChildren().get(1)).getChildren().size());
@@ -75,8 +74,8 @@ public class SimpleControlTest extends ApplicationTest {
         Assert.assertEquals(3, ((VBox) rb.getChildren().get(1)).getChildren().size());
         Assert.assertTrue(((RadioButton) ((VBox) rb.getChildren().get(1)).getChildren().get(1)).isSelected());
 
-        Assert.assertEquals(3, ((ComboBox<?>) ((StackPane) cmb.getChildren().get(1)).getChildren().get(0)).getItems().size());
-        Assert.assertTrue(((ComboBox<?>) ((StackPane) cmb.getChildren().get(1)).getChildren().get(0)).getSelectionModel().isSelected(1));
+        Assert.assertEquals(3, ((ComboBox<?>) cmb.getChildren().get(1)).getItems().size());
+        Assert.assertTrue(((ComboBox<?>) cmb.getChildren().get(1)).getSelectionModel().isSelected(1));
 
         mf.items(Arrays.asList(1, 2, 3, 4, 5), Arrays.asList(0, 3));
         sf.items(Arrays.asList(1, 2, 3, 4, 5), 3);
@@ -90,14 +89,14 @@ public class SimpleControlTest extends ApplicationTest {
         Assert.assertEquals(5, ((VBox) rb.getChildren().get(1)).getChildren().size());
         Assert.assertTrue(((RadioButton) ((VBox) rb.getChildren().get(1)).getChildren().get(3)).isSelected());
 
-        Assert.assertEquals(5, ((ComboBox<?>) ((StackPane) cmb.getChildren().get(1)).getChildren().get(0)).getItems().size());
-        Assert.assertTrue(((ComboBox<?>) ((StackPane) cmb.getChildren().get(1)).getChildren().get(0)).getSelectionModel().isSelected(3));
+        Assert.assertEquals(5, ((ComboBox<?>) cmb.getChildren().get(1)).getItems().size());
+        Assert.assertTrue(((ComboBox<?>) cmb.getChildren().get(1)).getSelectionModel().isSelected(3));
     }
 
     @Test
     public void styleTest() {
         StringField s = Field.ofStringType("test").styleClass("test");
-        SimpleTextControl t = new SimpleTextControl();
+        TextRenderer t = new TextRenderer();
         t.setField(s);
 
         Assert.assertEquals(3, t.getStyleClass().size());

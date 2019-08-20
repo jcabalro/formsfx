@@ -1,5 +1,12 @@
 package com.dlsc.formsfx.model.structure;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 /*-
  * ========================LICENSE_START=================================
  * FormsFX
@@ -9,9 +16,9 @@ package com.dlsc.formsfx.model.structure;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *        http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,12 +30,6 @@ package com.dlsc.formsfx.model.structure;
 import com.dlsc.formsfx.model.util.ResourceBundleService;
 import com.dlsc.formsfx.model.validators.RegexValidator;
 import com.dlsc.formsfx.model.validators.StringLengthValidator;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 /**
  * @author Sacha Schmid
@@ -49,15 +50,15 @@ public class FormTest {
     public void generateFormTest() {
         Form f = Form.of(
                 Group.of(
-                        Field.ofDoubleType(2.0)
+                        Field.ofNumber(2.0)
                 ),
                 Section.of(
                         Field.ofStringType("test"),
                         Field.ofBooleanType(false)
                 ),
                 Section.of(
-                        Field.ofIntegerType(1),
-                        Field.ofDoubleType(1.0)
+                        Field.ofNumber(1),
+                        Field.ofNumber(1.0)
                 ),
                 Section.of(
                         Field.ofPasswordType("")
@@ -89,7 +90,7 @@ public class FormTest {
     @Test
     public void changeTest() {
         StringField s = Field.ofStringType("test");
-        DoubleField d = Field.ofDoubleType(2.0);
+        NumberField d = Field.ofNumber(2.0);
         Section sec = Section.of(s, d);
 
         Form f = Form.of(sec);
@@ -155,8 +156,8 @@ public class FormTest {
     @Test
     public void persistableTest() {
         StringField s = Field.ofStringType("test");
-        DoubleField d = Field.ofDoubleType(2.0);
-        IntegerField i = Field.ofIntegerType(10);
+        NumberField d = Field.ofNumber(2.0);
+        NumberField i = Field.ofNumber(10);
 
         Form f = Form.of(Group.of(i), Section.of(s), Section.of(d));
 

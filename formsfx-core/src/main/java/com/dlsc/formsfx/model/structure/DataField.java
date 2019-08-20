@@ -107,8 +107,8 @@ public abstract class DataField<P extends Property<V>, V, F extends Field<F>> ex
      * elements, see the static factory methods in {@code Field}.
      *
      * @see Field::ofStringType
-     * @see Field::ofIntegerType
-     * @see Field::ofDoubleType
+     * @see Field::ofNumber
+     * @see Field::ofNumber
      * @see Field::ofBooleanType
      *
      * @param valueProperty
@@ -379,7 +379,7 @@ public abstract class DataField<P extends Property<V>, V, F extends Field<F>> ex
      * @return Returns whether the input matches the required condition.
      */
     protected boolean validateRequired(String newValue) {
-        return !isRequired() || (isRequired() && !newValue.isEmpty());
+        return !isRequired() || !newValue.isEmpty();
     }
 
     /**

@@ -28,10 +28,10 @@ import javafx.css.PseudoClass;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Control;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 
 /**
  * This class provides a base for general purpose FormsFX controls.
@@ -141,8 +141,8 @@ public abstract class SimpleControl<F extends Field<F>> extends GridPane impleme
      * @param reference
      *          The control which gets the tooltip.
      */
-    protected void toggleTooltip(Node reference) {
-        this.toggleTooltip(reference, (Control) reference);
+    protected void toggleTooltip(Region reference) {
+        this.toggleTooltip(reference, reference);
     }
 
     /**
@@ -153,7 +153,7 @@ public abstract class SimpleControl<F extends Field<F>> extends GridPane impleme
      * @param reference
      *          The control which gets the tooltip.
      */
-    protected void toggleTooltip(Node reference, Control below) {
+    protected void toggleTooltip(Node reference, Region below) {
         String fieldTooltip = field.getTooltip();
 
         if ((reference.isFocused() || reference.isHover()) && (!fieldTooltip.equals("") || field.getErrorMessages().size() > 0)) {

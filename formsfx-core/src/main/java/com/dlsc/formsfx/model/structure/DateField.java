@@ -42,8 +42,8 @@ public class DateField extends DataField<ObjectProperty<LocalDate>, LocalDate, D
      *                                of the field.
      * @param persistentValueProperty The property that is used to store the latest persisted
      * @see Field ::ofStringType
-     * @see Field ::ofIntegerType
-     * @see Field ::ofDoubleType
+     * @see Field ::ofNumber
+     * @see Field ::ofNumber
      * @see Field ::ofBooleanType
      */
     public DateField(ObjectProperty<LocalDate> valueProperty, ObjectProperty<LocalDate> persistentValueProperty) {

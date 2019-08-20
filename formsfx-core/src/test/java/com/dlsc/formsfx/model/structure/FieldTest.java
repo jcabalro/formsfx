@@ -132,8 +132,8 @@ public class FieldTest extends ApplicationTest {
         BooleanProperty b = new SimpleBooleanProperty(false);
 
         StringField sf = Field.ofStringType(s);
-        DoubleField df = Field.ofDoubleType(d);
-        IntegerField inf = Field.ofIntegerType(i);
+        NumberField df = Field.ofNumber(d);
+        NumberField inf = Field.ofNumber(i);
         BooleanField bf = Field.ofBooleanType(b);
 
         sf.userInputProperty().setValue("test 2");

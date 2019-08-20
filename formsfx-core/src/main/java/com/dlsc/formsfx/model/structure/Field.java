@@ -34,14 +34,13 @@ import java.util.stream.Collectors;
 import com.dlsc.formsfx.model.event.FieldEvent;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.util.TranslationService;
-import com.dlsc.formsfx.view.controls.SimpleBooleanControl;
-import com.dlsc.formsfx.view.controls.SimpleComboBoxControl;
-import com.dlsc.formsfx.view.controls.SimpleDateControl;
-import com.dlsc.formsfx.view.controls.SimpleDoubleControl;
-import com.dlsc.formsfx.view.controls.SimpleIntegerControl;
-import com.dlsc.formsfx.view.controls.SimpleListViewControl;
-import com.dlsc.formsfx.view.controls.SimplePasswordControl;
-import com.dlsc.formsfx.view.controls.SimpleTextControl;
+import com.dlsc.formsfx.view.controls.BooleanRenderer;
+import com.dlsc.formsfx.view.controls.ComboBoxRenderer;
+import com.dlsc.formsfx.view.controls.DateRenderer;
+import com.dlsc.formsfx.view.controls.ListViewRenderer;
+import com.dlsc.formsfx.view.controls.NumberRenderer;
+import com.dlsc.formsfx.view.controls.PasswordRenderer;
+import com.dlsc.formsfx.view.controls.TextRenderer;
 import com.dlsc.formsfx.view.renderer.FieldRenderer;
 
 import javafx.beans.InvalidationListener;
@@ -60,6 +59,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
@@ -86,6 +86,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      */
     protected final StringProperty label = new SimpleStringProperty("");
     protected final StringProperty labelKey = new SimpleStringProperty("");
+    protected final ObjectProperty<Pos> labelPos = new SimpleObjectProperty<>(Pos.TOP_LEFT);
 
     /**
      * The tooltip is an extension of the label. It contains additional
@@ -158,14 +159,13 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
 	public static final Map<Class<? extends Field>, Supplier<? extends FieldRenderer<?>>> RENDERERS = new HashMap<>();
 
     static {
-    	RENDERERS.put(BooleanField.class, SimpleBooleanControl::new);
-    	RENDERERS.put(DateField.class, SimpleDateControl::new);
-    	RENDERERS.put(DoubleField.class, SimpleDoubleControl::new);
-    	RENDERERS.put(IntegerField.class, SimpleIntegerControl::new);
-    	RENDERERS.put(MultiSelectionField.class, SimpleListViewControl::new);
-    	RENDERERS.put(PasswordField.class, SimplePasswordControl::new);
-    	RENDERERS.put(SingleSelectionField.class, SimpleComboBoxControl::new);
-    	RENDERERS.put(StringField.class, SimpleTextControl::new);
+    	RENDERERS.put(BooleanField.class, BooleanRenderer::new);
+    	RENDERERS.put(DateField.class, DateRenderer::new);
+    	RENDERERS.put(NumberField.class, NumberRenderer::new);
+    	RENDERERS.put(MultiSelectionField.class, ListViewRenderer::new);
+    	RENDERERS.put(PasswordField.class, PasswordRenderer::new);
+    	RENDERERS.put(SingleSelectionField.class, ComboBoxRenderer::new);
+    	RENDERERS.put(StringField.class, TextRenderer::new);
     }
 
     /**
@@ -193,8 +193,8 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      * see the static factory methods in this class.
      *
      * @see Field::ofStringType
-     * @see Field::ofIntegerType
-     * @see Field::ofDoubleType
+     * @see Field::ofNumber
+     * @see Field::ofNumber
      * @see Field::ofBooleanType
      * @see Field::ofMultiSelectionType
      * @see Field::ofSingleSelectionType
@@ -273,52 +273,20 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
         return new StringField(new SimpleStringProperty(binding.getValue()), new SimpleStringProperty(binding.getValue())).bind(binding);
     }
 
-    /**
-     * Creates a new {@link DoubleField} with the given default value.
-     *
-     * @param defaultValue
-     *              The initial value and persistent value of the field.
-     *
-     * @return Returns a new {@link DoubleField}.
-     */
-    public static DoubleField ofDoubleType(double defaultValue) {
-        return new DoubleField(new SimpleDoubleProperty(defaultValue), new SimpleDoubleProperty(defaultValue));
+    public static NumberField ofNumber(Double defaultValue) {
+    	return new NumberField(Double.class, new SimpleDoubleProperty(defaultValue), new SimpleDoubleProperty(defaultValue));
     }
 
-    /**
-     * Creates a new {@link DoubleField} with the given property.
-     *
-     * @param binding
-     *          The property from the model to be bound with.
-     *
-     * @return Returns a new {@link DoubleField}.
-     */
-    public static DoubleField ofDoubleType(DoubleProperty binding) {
-        return new DoubleField(new SimpleDoubleProperty(binding.getValue()), new SimpleDoubleProperty(binding.getValue())).bind(binding);
+    public static NumberField ofNumber(Integer defaultValue) {
+    	return new NumberField(Integer.class, new SimpleIntegerProperty(defaultValue), new SimpleIntegerProperty(defaultValue));
     }
 
-    /**
-     * Creates a new {@link IntegerField} with the given default value.
-     *
-     * @param defaultValue
-     *              The initial value and persistent value of the field.
-     *
-     * @return Returns a new {@link IntegerField}.
-     */
-    public static IntegerField ofIntegerType(int defaultValue) {
-        return new IntegerField(new SimpleIntegerProperty(defaultValue), new SimpleIntegerProperty(defaultValue));
+    public static NumberField ofNumber(DoubleProperty binding) {
+    	return new NumberField(Double.class, new SimpleDoubleProperty(binding.getValue()), new SimpleDoubleProperty(binding.getValue())).bind(binding);
     }
 
-    /**
-     * Creates a new {@link IntegerField} with the given property.
-     *
-     * @param binding
-     *          The property from the model to be bound with.
-     *
-     * @return Returns a new {@link IntegerField}.
-     */
-    public static IntegerField ofIntegerType(IntegerProperty binding) {
-        return new IntegerField(new SimpleIntegerProperty(binding.getValue()), new SimpleIntegerProperty(binding.getValue())).bind(binding);
+    public static NumberField ofNumber(IntegerProperty binding) {
+        return new NumberField(Integer.class, new SimpleIntegerProperty(binding.getValue()), new SimpleIntegerProperty(binding.getValue())).bind(binding);
     }
 
     /**
@@ -539,6 +507,12 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
         }
 
         return (F) this;
+    }
+
+    @SuppressWarnings("unchecked")
+	public F labelPos(Pos pos) {
+    	setLabelPos(pos);
+    	return (F) this;
     }
 
     /**
@@ -919,4 +893,17 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
     public Node getValueDescription() {
         return valueDescription;
     }
+
+	public final ObjectProperty<Pos> labelPosProperty() {
+		return this.labelPos;
+	}
+
+	public final Pos getLabelPos() {
+		return this.labelPosProperty().get();
+	}
+
+	public final void setLabelPos(final Pos labelPos) {
+		this.labelPosProperty().set(labelPos);
+	}
+
 }
