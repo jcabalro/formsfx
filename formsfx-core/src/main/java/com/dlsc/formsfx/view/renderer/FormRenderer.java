@@ -57,7 +57,7 @@ public class FormRenderer extends VBox implements ViewMixin {
 
     @Override
     public String getUserAgentStylesheet() {
-        return FormRenderer.class.getResource("style.css").toExternalForm();
+        return getClass().getResource("style.css").toExternalForm();
     }
 
     /**

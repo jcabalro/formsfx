@@ -26,7 +26,6 @@ import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.structure.NodeElement;
 import com.dlsc.formsfx.view.util.ViewMixin;
 
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -44,7 +43,7 @@ public abstract class GroupRendererBase<V extends Group> extends StackPane imple
      * - SPACING is used to set the spacing of the section as well as the
      *   spacing for vertical/horizontal gaps between controls.
      */
-    protected final int SPACING = 10;
+    // protected final int SPACING = 10;
 
     protected GridPane grid;
 
@@ -56,6 +55,7 @@ public abstract class GroupRendererBase<V extends Group> extends StackPane imple
     @Override
     public void initializeParts() {
         grid = new GridPane();
+        grid.getStyleClass().add("group-grid");
     }
 
     /**
@@ -71,10 +71,6 @@ public abstract class GroupRendererBase<V extends Group> extends StackPane imple
             colConst.setPercentWidth(100.0 / COLUMN_COUNT);
             grid.getColumnConstraints().add(colConst);
         }
-
-        grid.setHgap(SPACING);
-        grid.setVgap(SPACING);
-        setPadding(new Insets(SPACING));
 
         int currentRow = 0;
         int currentColumnCount = 0;

@@ -22,8 +22,6 @@ package com.dlsc.formsfx.view.renderer;
 
 import com.dlsc.formsfx.model.structure.Group;
 
-import javafx.geometry.Insets;
-
 /**
  * This class renders a group for a form.
  *
@@ -61,7 +59,6 @@ public class GroupRenderer extends GroupRendererBase<Group> {
         getStyleClass().add("formsfx-group");
 
         setFocusTraversable(false);
-        setPadding(new Insets(SPACING * 2));
         getChildren().add(grid);
     }
 

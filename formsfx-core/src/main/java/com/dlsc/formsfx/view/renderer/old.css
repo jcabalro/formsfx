@@ -11,7 +11,7 @@
 .simple-control .text-field,
 .simple-control .password-field,
 .simple-control .text-area {
-    -fx-padding: 5px;
+    -fx-padding: 1px;
 }
 
 .simple-control .read-only-label {
