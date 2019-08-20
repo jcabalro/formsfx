@@ -12,7 +12,7 @@ public class BooleanRenderer extends LabeledRenderer<BooleanField, CheckBox> {
     @Override
     public void initializeParts() {
         super.initializeParts();
-        getStyleClass().add("simple-boolean-control");
+        getView().getStyleClass().add("simple-boolean-control");
         control = new CheckBox();
     }
 

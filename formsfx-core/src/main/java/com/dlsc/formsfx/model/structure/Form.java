@@ -40,6 +40,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.geometry.Pos;
 
 /**
  * A form is the containing unit for sections and elements and is used to bring
@@ -80,6 +81,8 @@ public class Form {
     protected final Runnable localeChangeListener = this::translate;
 
     private final Map<EventType<FormEvent>,List<EventHandler<? super FormEvent>>> eventHandlers = new ConcurrentHashMap<>();
+
+    public static Pos labelPos = Pos.TOP_LEFT;
 
     /**
      * Internal constructor for the {@code Form} class. To create new

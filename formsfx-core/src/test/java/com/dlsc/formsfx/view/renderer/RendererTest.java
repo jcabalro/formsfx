@@ -35,7 +35,6 @@ import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.structure.Section;
 import com.dlsc.formsfx.view.controls.CheckboxListRenderer;
 import com.dlsc.formsfx.view.controls.RadioButtonRenderer;
-import com.dlsc.formsfx.view.controls.TextRenderer;
 
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
@@ -46,7 +45,8 @@ import javafx.scene.layout.GridPane;
  */
 public class RendererTest extends ApplicationTest {
 
-	@Rule
+  @Rule
+  @SuppressWarnings("exports")
 	public TestFXRule testFXRule = new TestFXRule();
 
     @Test
@@ -54,10 +54,10 @@ public class RendererTest extends ApplicationTest {
         Form f = Form.of(Group.of(), Section.of(), Group.of(), Group.of(), Section.of());
         FormRenderer r = new FormRenderer(f);
 
-        Assert.assertTrue(r.getChildren().get(0) instanceof GroupRenderer);
+        Assert.assertTrue(r.getChildren().get(0).getStyleClass().contains("formsfx-group"));
         Assert.assertEquals(5, r.getChildren().size());
-        Assert.assertFalse(r.getChildren().get(0) instanceof SectionRenderer);
-        Assert.assertTrue(r.getChildren().get(1) instanceof SectionRenderer);
+        Assert.assertFalse(r.getChildren().get(0).getStyleClass().contains("formsfx-section"));
+        Assert.assertTrue(r.getChildren().get(1).getStyleClass().contains("formsfx-section"));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class RendererTest extends ApplicationTest {
         GroupRenderer r = new GroupRenderer(g);
 
         Assert.assertTrue(r.getChildren().get(0) instanceof GridPane);
-        Assert.assertTrue(((GridPane) r.getChildren().get(0)).getChildren().get(0) instanceof TextRenderer);
+        Assert.assertTrue(((GridPane) r.getChildren().get(0)).getChildren().get(0).getStyleClass().contains("simple-text-control"));
     }
 
     @Test

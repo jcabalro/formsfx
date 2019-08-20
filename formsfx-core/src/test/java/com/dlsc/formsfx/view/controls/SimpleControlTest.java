@@ -45,7 +45,8 @@ import javafx.scene.layout.VBox;
  */
 public class SimpleControlTest extends ApplicationTest {
 
-	@Rule
+  @Rule
+  @SuppressWarnings("exports")
 	public TestFXRule testFXRule = new TestFXRule();
 
     @Test

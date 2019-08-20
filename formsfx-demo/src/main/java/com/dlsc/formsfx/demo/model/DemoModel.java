@@ -16,6 +16,8 @@ import com.dlsc.formsfx.view.controls.CheckboxListRenderer;
 import com.dlsc.formsfx.view.controls.RadioButtonRenderer;
 import com.dlsc.formsfx.view.util.ColSpan;
 
+import javafx.geometry.Pos;
+
 /**
  * This class is used to create the form and holds all the necessary data. This
  * class acts as a singleton where the current instance is available using
@@ -59,6 +61,7 @@ public final class DemoModel {
      * Creates a new form instance with the required information.
      */
     private void createForm() {
+    	Form.labelPos = Pos.CENTER_LEFT;
         formInstance = Form.of(
                 Group.of(
                         Field.ofStringType(country.nameProperty())

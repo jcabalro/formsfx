@@ -52,7 +52,8 @@ import javafx.collections.FXCollections;
  */
 public class FieldTest extends ApplicationTest {
 
-	@Rule
+  @Rule
+  @SuppressWarnings("exports")
 	public TestFXRule testFXRule = new TestFXRule();
 
     @Test

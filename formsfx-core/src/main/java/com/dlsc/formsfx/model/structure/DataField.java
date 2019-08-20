@@ -127,7 +127,10 @@ public abstract class DataField<P extends Property<V>, V, F extends Field<F>> ex
         // until Field::persist or Field::reset are called or the value is back
         // to the persistent value.
 
-        changed.bind(Bindings.createBooleanBinding(() -> !stringConverter.toString(persistentValue.getValue()).equals(userInput.getValue()), userInput, persistentValue));
+        changed.bind(
+        		Bindings.createBooleanBinding(() ->
+        			!stringConverter.toString(persistentValue.getValue()).equals(userInput.getValue()),
+        		userInput, persistentValue));
 
         // Whenever one of the translatable elements' keys change, update the
         // displayed value based on the new translation.

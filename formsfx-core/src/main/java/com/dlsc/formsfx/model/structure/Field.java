@@ -86,7 +86,7 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
      */
     protected final StringProperty label = new SimpleStringProperty("");
     protected final StringProperty labelKey = new SimpleStringProperty("");
-    protected final ObjectProperty<Pos> labelPos = new SimpleObjectProperty<>(Pos.TOP_LEFT);
+    protected final ObjectProperty<Pos> labelPos = new SimpleObjectProperty<>(Form.labelPos);
 
     /**
      * The tooltip is an extension of the label. It contains additional

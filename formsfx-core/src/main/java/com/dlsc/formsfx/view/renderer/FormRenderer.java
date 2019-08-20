@@ -39,52 +39,60 @@ import javafx.scene.layout.VBox;
  */
 public class FormRenderer extends VBox implements ViewMixin {
 
-    protected Form form;
+  protected VBox view;
+  protected Form form;
 
-    @SuppressWarnings("rawtypes")
-	protected List<GroupRendererBase> sections = new ArrayList<>();
+  @SuppressWarnings("rawtypes")
+  protected List<GroupRendererBase> sections = new ArrayList<>();
 
-    /**
-     * This is the constructor to pass over data.
-     * @param form
-     *              The form which gets rendered.
-     */
-    public FormRenderer(Form form) {
-        this.form = form;
+  /**
+   * This is the constructor to pass over data.
+   * 
+   * @param form The form which gets rendered.
+   */
+  public FormRenderer(Form form) {
+    this.form = form;
 
-        init();
-    }
+    init();
+  }
+  
+  @Override
+  public VBox getView() {
+    return view;
+  }
 
-    @Override
-    public String getUserAgentStylesheet() {
-        return getClass().getResource("style.css").toExternalForm();
-    }
+  @Override
+  public String getUserAgentStylesheet() {
+    return getClass().getResource("style.css").toExternalForm();
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initializeParts() {
-        sections = form.getGroups().stream()
-                .map(s -> {
-                    if (s instanceof Section) {
-                        return new SectionRenderer((Section) s);
-                    } else {
-                        return new GroupRenderer(s);
-                    }
-                })
-                .collect(Collectors.toList());
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+    sections = form.getGroups().stream()
+        .map(s -> {
+          if (s instanceof Section) {
+            return new SectionRenderer((Section) s);
+          } else {
+            return new GroupRenderer(s);
+          }
+        })
+        .collect(Collectors.toList());
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void layoutParts() {
-        getStyleClass().add("formsfx-form");
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void layoutParts() {
+    getStyleClass().add("formsfx-form");
 
-        setPadding(new Insets(10));
-        getChildren().addAll(sections);
-    }
+    setPadding(new Insets(10));
+    getChildren().addAll(sections.stream()
+        .map(GroupRendererBase::getView)
+        .collect(Collectors.toList()));
+  }
 
 }

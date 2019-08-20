@@ -58,7 +58,7 @@ public class GroupRenderer extends GroupRendererBase<Group> {
 
         getStyleClass().add("formsfx-group");
 
-        setFocusTraversable(false);
+        getView().setFocusTraversable(false);
         getChildren().add(grid);
     }
 

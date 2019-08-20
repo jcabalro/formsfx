@@ -4,6 +4,7 @@ import com.dlsc.formsfx.demo.model.DemoModel;
 import com.dlsc.formsfx.model.structure.Section;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.dlsc.formsfx.view.util.ViewMixin;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,6 +12,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -67,6 +69,11 @@ public class RootPane extends BorderPane implements ViewMixin {
     public RootPane(DemoModel model) {
         this.model = model;
         init();
+    }
+
+    @Override
+    public Pane getView() {
+    	return this;
     }
 
     /**
@@ -168,7 +175,7 @@ public class RootPane extends BorderPane implements ViewMixin {
             Section sec = (Section) s;
             sec.collapse(!sec.isCollapsed());
         }));
-        
+
         editableToggle.setOnAction(event -> model.getFormInstance().getFields().forEach(s -> s.editable(!s.isEditable())));
     }
 

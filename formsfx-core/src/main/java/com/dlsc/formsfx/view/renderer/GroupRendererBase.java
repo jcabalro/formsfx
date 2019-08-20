@@ -26,7 +26,6 @@ import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.structure.NodeElement;
 import com.dlsc.formsfx.view.util.ViewMixin;
 
-import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -37,65 +36,67 @@ import javafx.scene.layout.StackPane;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public abstract class GroupRendererBase<V extends Group> extends StackPane implements ViewMixin {
+public abstract class GroupRendererBase<V extends Group> implements ViewMixin {
 
-    /**
-     * - SPACING is used to set the spacing of the section as well as the
-     *   spacing for vertical/horizontal gaps between controls.
-     */
-    // protected final int SPACING = 10;
+  protected StackPane view;
 
-    protected GridPane grid;
+  protected GridPane grid;
 
-    protected V element;
+  protected V element;
 
-    /**
-     *
-     */
-    @Override
-    public void initializeParts() {
-        grid = new GridPane();
-        grid.getStyleClass().add("group-grid");
+  @Override
+  public StackPane getView() {
+    return view;
+  }
+
+  /**
+   *
+   */
+  @Override
+  public void initializeParts() {
+    view = new StackPane();
+    grid = new GridPane();
+    grid.getStyleClass().add("group-grid");
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @Override
+  public void layoutParts() {
+    int COLUMN_COUNT = 12;
+
+    for (int i = 0; i < COLUMN_COUNT; i++) {
+      ColumnConstraints colConst = new ColumnConstraints();
+      colConst.setPercentWidth(100.0 / COLUMN_COUNT);
+      grid.getColumnConstraints().add(colConst);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-    public void layoutParts() {
-        int COLUMN_COUNT = 12;
+    int currentRow = 0;
+    int currentColumnCount = 0;
 
-        for (int i = 0; i < COLUMN_COUNT; i++) {
-            ColumnConstraints colConst = new ColumnConstraints();
-            colConst.setPercentWidth(100.0 / COLUMN_COUNT);
-            grid.getColumnConstraints().add(colConst);
-        }
+    // Add the controls in the GridPane in a 12-column layout. If a control
+    // takes up too much horizontal space, wrap it to the next row.
 
-        int currentRow = 0;
-        int currentColumnCount = 0;
+    for (Element<?> e : element.getElements()) {
+      int span = e.getSpan();
 
-        // Add the controls in the GridPane in a 12-column layout. If a control
-        // takes up too much horizontal space, wrap it to the next row.
+      if (currentColumnCount + span > COLUMN_COUNT) {
+        currentRow += 1;
+        currentColumnCount = 0;
+      }
 
-        for (Element<?> e : element.getElements()) {
-            int span = e.getSpan();
+      if (e instanceof Field) {
+        Field f = (Field) e;
+        FieldRenderer c = f.getRenderer();
+        c.setField(f);
+        grid.add(c.getView(), currentColumnCount, currentRow, span, 1);
+      } else if (e instanceof NodeElement) {
+        grid.add(((NodeElement) e).getNode(), currentColumnCount, currentRow, span, 1);
+      }
 
-            if (currentColumnCount + span > COLUMN_COUNT) {
-                currentRow += 1;
-                currentColumnCount = 0;
-            }
-
-            if (e instanceof Field) {
-            	Field f = (Field) e;
-                FieldRenderer c = f.getRenderer();
-                c.setField(f);
-                grid.add((Node) c, currentColumnCount, currentRow, span, 1);
-            } else if (e instanceof NodeElement){
-                grid.add(((NodeElement)e).getNode(), currentColumnCount, currentRow, span, 1);
-            }
-
-            currentColumnCount += span;
-        }
+      currentColumnCount += span;
     }
+  }
 }

@@ -12,7 +12,7 @@ public class CheckboxListRenderer<V> extends LabeledListRenderer<MultiSelectionF
     @Override
     public void initializeParts() {
         super.initializeParts();
-        getStyleClass().add("simple-checkbox-control");
+        getView().getStyleClass().add("simple-checkbox-control");
         createCheckboxes();
     }
 

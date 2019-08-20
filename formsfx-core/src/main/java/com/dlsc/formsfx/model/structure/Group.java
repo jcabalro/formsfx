@@ -175,6 +175,7 @@ public class Group {
             .filter(e -> e instanceof Field)
             .map(e -> (Field<?>) e)
             .anyMatch(Field::hasChanged));
+        System.out.println(changed.get());
     }
 
     /**
