@@ -269,20 +269,21 @@ public class Form {
         return groups;
     }
 
-    public <E extends Element<?>> List<E> getElements() {
+    @SuppressWarnings("rawtypes")
+	public List<Element> getElements() {
         return groups.stream()
                 .map(Group::getElements)
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
     }
 
-    @SuppressWarnings("unchecked")
-	public <F extends Field<?>> List<F> getFields() {
+	@SuppressWarnings("rawtypes")
+	public List<Field> getFields() {
         return groups.stream()
             .map(Group::getElements)
             .flatMap(List::stream)
             .filter(e -> e instanceof Field)
-            .map(e -> (F) e)
+            .map(e -> (Field) e)
             .collect(Collectors.toList());
     }
 

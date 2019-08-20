@@ -2,11 +2,13 @@ package com.dlsc.formsfx.model.structure;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /*-
@@ -32,6 +34,14 @@ import java.util.stream.Collectors;
 import com.dlsc.formsfx.model.event.FieldEvent;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.util.TranslationService;
+import com.dlsc.formsfx.view.controls.SimpleBooleanControl;
+import com.dlsc.formsfx.view.controls.SimpleComboBoxControl;
+import com.dlsc.formsfx.view.controls.SimpleDateControl;
+import com.dlsc.formsfx.view.controls.SimpleDoubleControl;
+import com.dlsc.formsfx.view.controls.SimpleIntegerControl;
+import com.dlsc.formsfx.view.controls.SimpleListViewControl;
+import com.dlsc.formsfx.view.controls.SimplePasswordControl;
+import com.dlsc.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.formsfx.view.renderer.FieldRenderer;
 
 import javafx.beans.InvalidationListener;
@@ -144,13 +154,27 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
     private static final String LABEL_DESCRIPTION_STYLE_CLASS = "field-label-description";
     private static final String VALUE_DESCRIPTION_STYLE_CLASS = "field-value-description";
 
+    @SuppressWarnings("rawtypes")
+	public static final Map<Class<? extends Field>, Supplier<? extends FieldRenderer<?>>> RENDERERS = new HashMap<>();
+
+    static {
+    	RENDERERS.put(BooleanField.class, SimpleBooleanControl::new);
+    	RENDERERS.put(DateField.class, SimpleDateControl::new);
+    	RENDERERS.put(DoubleField.class, SimpleDoubleControl::new);
+    	RENDERERS.put(IntegerField.class, SimpleIntegerControl::new);
+    	RENDERERS.put(MultiSelectionField.class, SimpleListViewControl::new);
+    	RENDERERS.put(PasswordField.class, SimplePasswordControl::new);
+    	RENDERERS.put(SingleSelectionField.class, SimpleComboBoxControl::new);
+    	RENDERERS.put(StringField.class, SimpleTextControl::new);
+    }
+
     /**
      * The translation service is passed down from the containing section. It
      * is used to translate all translatable values of the field.
      */
     protected TranslationService translationService;
 
-    protected FieldRenderer<F> renderer;
+    private FieldRenderer<F> renderer;
 
     protected final Map<EventType<FieldEvent>,List<EventHandler<? super FieldEvent>>> eventHandlers = new ConcurrentHashMap<>();
 
@@ -808,7 +832,11 @@ public abstract class Field<F extends Field<F>> extends Element<F> implements Fo
         return translationService != null;
     }
 
+	@SuppressWarnings("unchecked")
 	public FieldRenderer<F> getRenderer() {
+		if (renderer == null) {
+			renderer = (FieldRenderer<F>) RENDERERS.get(this.getClass()).get();
+		}
         return renderer;
     }
 

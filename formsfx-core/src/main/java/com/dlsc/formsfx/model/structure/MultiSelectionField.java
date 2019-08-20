@@ -29,7 +29,6 @@ import com.dlsc.formsfx.model.event.FieldEvent;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.validators.ValidationResult;
 import com.dlsc.formsfx.model.validators.Validator;
-import com.dlsc.formsfx.view.controls.SimpleListViewControl;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
@@ -101,8 +100,6 @@ public class MultiSelectionField<V> extends SelectionField<V, MultiSelectionFiel
             this.selection.clear();
             persistentSelection.clear();
         });
-
-        renderer = new SimpleListViewControl<>();
     }
 
     /**

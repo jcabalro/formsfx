@@ -1,22 +1,17 @@
 package com.dlsc.formsfx.model.structure;
 
-import java.time.LocalDate;
-import java.time.chrono.Chronology;
-import java.time.format.FormatStyle;
-import java.util.Locale;
-
 /*-
  * ========================LICENSE_START=================================
  * FormsFX
  * %%
- * Copyright (C) 2017 - 2018 DLSC Software & Consulting
+ * Copyright (C) 2017 - 2019 DLSC Software & Consulting
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *        http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +20,10 @@ import java.util.Locale;
  * =========================LICENSE_END==================================
  */
 
-import com.dlsc.formsfx.view.controls.SimpleDateControl;
+import java.time.LocalDate;
+import java.time.chrono.Chronology;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.util.converter.LocalDateStringConverter;
@@ -53,7 +51,6 @@ public class DateField extends DataField<ObjectProperty<LocalDate>, LocalDate, D
 
         Chronology chronology = Chronology.ofLocale(Locale.getDefault(Locale.Category.FORMAT));
         stringConverter = new LocalDateStringConverter(FormatStyle.SHORT, null, chronology);
-        renderer = new SimpleDateControl();
         userInput.setValue(null);
         userInput.setValue(stringConverter.toString(persistentValue.getValue()));
     }

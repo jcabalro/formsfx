@@ -29,7 +29,6 @@ import com.dlsc.formsfx.model.event.FieldEvent;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.validators.ValidationResult;
 import com.dlsc.formsfx.model.validators.Validator;
-import com.dlsc.formsfx.view.controls.SimpleComboBoxControl;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
@@ -98,7 +97,6 @@ public class SingleSelectionField<V> extends SelectionField<V, SingleSelectionFi
             persistentSelection.setValue(null);
         });
 
-        renderer = new SimpleComboBoxControl<>();
     }
 
     /**
