@@ -31,6 +31,6 @@ package com.dlsc.formsfx.model.util;
 @Deprecated
 public interface ValueTransformer<T> {
 
-    T transform(String input);
+  T transform(String input);
 
 }

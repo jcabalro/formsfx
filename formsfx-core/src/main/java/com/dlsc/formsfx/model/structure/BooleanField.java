@@ -33,35 +33,33 @@ import javafx.geometry.Pos;
  */
 public class BooleanField extends DataField<BooleanProperty, Boolean, BooleanField> {
 
-    /**
-     * The constructor of {@code BooleanField}.
-     *
-     * @param valueProperty
-     *              The property that is used to store the current valid value
-     *              of the field.
-     * @param persistentValueProperty
-     *              The property that is used to store the latest persisted
-     *              value of the field.
-     */
-    protected BooleanField(SimpleBooleanProperty valueProperty, SimpleBooleanProperty persistentValueProperty) {
-        super(valueProperty, persistentValueProperty);
+  /**
+   * The constructor of {@code BooleanField}.
+   *
+   * @param valueProperty           The property that is used to store the current
+   *                                valid value of the field.
+   * @param persistentValueProperty The property that is used to store the latest
+   *                                persisted value of the field.
+   */
+  protected BooleanField(SimpleBooleanProperty valueProperty, SimpleBooleanProperty persistentValueProperty) {
+    super(valueProperty, persistentValueProperty);
 
-        stringConverter = new AbstractStringConverter<Boolean>() {
-            @Override
-            public Boolean fromString(String string) {
-                return Boolean.parseBoolean(string);
-            }
-        };
-        userInput.set(stringConverter.toString(value.getValue()));
-        setLabelPos(Pos.CENTER_LEFT);
-    }
+    stringConverter = new AbstractStringConverter<Boolean>() {
+      @Override
+      public Boolean fromString(String string) {
+        return Boolean.parseBoolean(string);
+      }
+    };
+    userInput.set(stringConverter.toString(value.getValue()));
+    setLabelPos(Pos.CENTER_LEFT);
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean validateRequired(String newValue) {
-        return !isRequired() || (isRequired() && newValue.equals("true"));
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected boolean validateRequired(String newValue) {
+    return !isRequired() || (isRequired() && newValue.equals("true"));
+  }
 
 }

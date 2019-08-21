@@ -10,14 +10,31 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public abstract class LabeledListRenderer<F extends Field<F>> extends SimpleControl<F> {
 
+  protected Pane view;
   protected List<Control> controls = new ArrayList<>();
   protected Label fieldLabel;
   protected VBox box;
+
+  private boolean compact = false;
+
+  @Override
+  public Pane getView() {
+    return view;
+  }
+
+  @Override
+  public void setField(F field) {
+    view = compact ? new AnchorPane() : new GridPane();
+    super.setField(field);
+  }
 
   /**
    * {@inheritDoc}
@@ -37,13 +54,34 @@ public abstract class LabeledListRenderer<F extends Field<F>> extends SimpleCont
    */
   @Override
   public void layoutParts() {
-    super.layoutParts();
+    if (compact) {
+      layoutPartsCompact();
+    } else {
+      layoutPartsGrid();
+    }
+  }
 
+  public void layoutPartsCompact() {
+    AnchorPane view = (AnchorPane) getView();
+    Node labelDescription = field.getLabelDescription();
+    Node valueDescription = field.getValueDescription();
+
+  }
+
+  public void layoutPartsGrid() {
     GridPane view = (GridPane) getView();
     Node labelDescription = field.getLabelDescription();
     Node valueDescription = field.getValueDescription();
 
+    view.setAlignment(Pos.CENTER_LEFT);
+
     int columns = field.getSpan();
+
+    for (int i = 0; i < columns; i++) {
+      ColumnConstraints colConst = new ColumnConstraints();
+      colConst.setPercentWidth(100.0 / columns);
+      view.getColumnConstraints().add(colConst);
+    }
 
     if (fieldLabel == null) {
       view.add(box, 0, 1, columns, 1);

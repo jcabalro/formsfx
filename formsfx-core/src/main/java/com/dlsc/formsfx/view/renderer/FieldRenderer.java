@@ -25,5 +25,5 @@ import com.dlsc.formsfx.view.util.ViewMixin;
 
 public interface FieldRenderer<F extends Field<?>> extends ViewMixin {
 
-	void setField(F field);
+  void setField(F field);
 }

@@ -26,11 +26,8 @@ import com.dlsc.formsfx.view.renderer.FieldRenderer;
 import javafx.collections.ListChangeListener;
 import javafx.css.PseudoClass;
 import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
@@ -52,8 +49,6 @@ public abstract class SimpleControl<F extends Field<F>> implements FieldRenderer
    */
   protected Tooltip tooltip;
 
-  protected GridPane grid = new GridPane();
-
   /**
    * Pseudo classes for state changes.
    */
@@ -72,22 +67,17 @@ public abstract class SimpleControl<F extends Field<F>> implements FieldRenderer
     init();
   }
 
-  @Override
-  public Pane getView() {
-    return grid;
-  }
-
   /**
    * {@inheritDoc}
    */
   @Override
   public void initializeParts() {
-    grid.getStyleClass().add("simple-control");
+    getStyleClass().add("simple-control");
 
     tooltip = new Tooltip();
     tooltip.getStyleClass().add("simple-tooltip");
 
-    grid.getStyleClass().addAll(field.getStyleClass());
+    getStyleClass().addAll(field.getStyleClass());
 
     updateStyle(INVALID_CLASS, !field.isValid());
     updateStyle(REQUIRED_CLASS, field.isRequired());
@@ -99,24 +89,8 @@ public abstract class SimpleControl<F extends Field<F>> implements FieldRenderer
    * {@inheritDoc}
    */
   @Override
-  public void layoutParts() {
-    grid.setAlignment(Pos.CENTER_LEFT);
-
-    int columns = field.getSpan();
-
-    for (int i = 0; i < columns; i++) {
-      ColumnConstraints colConst = new ColumnConstraints();
-      colConst.setPercentWidth(100.0 / columns);
-      grid.getColumnConstraints().add(colConst);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public void setupBindings() {
-    grid.idProperty().bind(field.idProperty());
+    getView().idProperty().bind(field.idProperty());
   }
 
   /**
@@ -132,11 +106,11 @@ public abstract class SimpleControl<F extends Field<F>> implements FieldRenderer
     field.getStyleClass().addListener((ListChangeListener<String>) c -> {
       while (c.next()) {
         if (c.wasRemoved()) {
-          grid.getStyleClass().removeAll(c.getRemoved());
+          getStyleClass().removeAll(c.getRemoved());
         }
 
         if (c.wasAdded()) {
-          grid.getStyleClass().addAll(c.getAddedSubList());
+          getStyleClass().addAll(c.getAddedSubList());
         }
       }
     });
@@ -171,11 +145,11 @@ public abstract class SimpleControl<F extends Field<F>> implements FieldRenderer
       }
 
       Point2D p = below.localToScene(0.0, 0.0);
-
+      Pane view = getView();
       tooltip.show(
-          grid.getScene().getWindow(),
-          p.getX() + grid.getScene().getX() + grid.getScene().getWindow().getX(),
-          p.getY() + grid.getScene().getY() + grid.getScene().getWindow().getY() + below.getHeight() + 5);
+          view.getScene().getWindow(),
+          p.getX() + view.getScene().getX() + view.getScene().getWindow().getX(),
+          p.getY() + view.getScene().getY() + view.getScene().getWindow().getY() + below.getHeight() + 5);
     } else {
       tooltip.hide();
     }
@@ -188,24 +162,24 @@ public abstract class SimpleControl<F extends Field<F>> implements FieldRenderer
    * @param newValue Determines whether the CSS class should be applied.
    */
   protected void updateStyle(PseudoClass pseudo, boolean newValue) {
-    grid.pseudoClassStateChanged(pseudo, newValue);
+    getView().pseudoClassStateChanged(pseudo, newValue);
   }
 
   /**
    * Adds a style class to the control.
-   * 
+   *
    * @param name of the style class to be added to the control
    */
   public void addStyleClass(String name) {
-    grid.getStyleClass().add(name);
+    getStyleClass().add(name);
   }
 
   /**
    * Removes a style class from the control.
-   * 
+   *
    * @param name of the class to be removed from the control
    */
   public void removeStyleClass(String name) {
-    grid.getStyleClass().remove(name);
+    getStyleClass().remove(name);
   }
 }

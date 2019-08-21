@@ -30,36 +30,35 @@ import com.dlsc.formsfx.model.structure.Group;
  */
 public class GroupRenderer extends GroupRendererBase<Group> {
 
-    /**
-     * This is the constructor to pass over data.
-     *
-     * @param group
-     *              The section which gets rendered.
-     */
-    protected GroupRenderer(Group group) {
-        this.element = group;
-        init();
-    }
+  /**
+   * This is the constructor to pass over data.
+   *
+   * @param group The section which gets rendered.
+   */
+  protected GroupRenderer(Group group) {
+    this.element = group;
+    init();
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initializeParts() {
-        super.initializeParts();
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+    super.initializeParts();
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void layoutParts() {
-        super.layoutParts();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void layoutParts() {
+    super.layoutParts();
 
-        getStyleClass().add("formsfx-group");
+    getStyleClass().add("formsfx-group");
 
-        getView().setFocusTraversable(false);
-        getChildren().add(grid);
-    }
+    getView().setFocusTraversable(false);
+    getChildren().add(grid);
+  }
 
 }

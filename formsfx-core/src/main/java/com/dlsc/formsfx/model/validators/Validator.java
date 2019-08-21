@@ -29,6 +29,6 @@ package com.dlsc.formsfx.model.validators;
  */
 public interface Validator<T> {
 
-    ValidationResult validate(T input);
+  ValidationResult validate(T input);
 
 }

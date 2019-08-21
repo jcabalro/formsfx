@@ -29,35 +29,37 @@ import javafx.beans.property.ObjectProperty;
 import javafx.util.converter.LocalDateStringConverter;
 
 /**
- * This class provides an implementation of a {@link Field} containing a {@code LocalDate} value.
+ * This class provides an implementation of a {@link Field} containing a
+ * {@code LocalDate} value.
  *
  * @author Tomasz Krzemiński
  */
 public class DateField extends DataField<ObjectProperty<LocalDate>, LocalDate, DateField> {
-    /**
-     * Internal constructor for the {@code DataField} class. To create new
-     * elements, see the static factory methods in {@code Field}.
-     *
-     * @param valueProperty           The property that is used to store the current valid value
-     *                                of the field.
-     * @param persistentValueProperty The property that is used to store the latest persisted
-     * @see Field ::ofStringType
-     * @see Field ::ofNumber
-     * @see Field ::ofNumber
-     * @see Field ::ofBooleanType
-     */
-    public DateField(ObjectProperty<LocalDate> valueProperty, ObjectProperty<LocalDate> persistentValueProperty) {
-        super(valueProperty, persistentValueProperty);
+  /**
+   * Internal constructor for the {@code DataField} class. To create new elements,
+   * see the static factory methods in {@code Field}.
+   *
+   * @param valueProperty           The property that is used to store the current
+   *                                valid value of the field.
+   * @param persistentValueProperty The property that is used to store the latest
+   *                                persisted
+   * @see Field ::ofStringType
+   * @see Field ::ofNumber
+   * @see Field ::ofNumber
+   * @see Field ::ofBooleanType
+   */
+  public DateField(ObjectProperty<LocalDate> valueProperty, ObjectProperty<LocalDate> persistentValueProperty) {
+    super(valueProperty, persistentValueProperty);
 
-        Chronology chronology = Chronology.ofLocale(Locale.getDefault(Locale.Category.FORMAT));
-        stringConverter = new LocalDateStringConverter(FormatStyle.SHORT, null, chronology);
-        userInput.setValue(null);
-        userInput.setValue(stringConverter.toString(persistentValue.getValue()));
-    }
+    Chronology chronology = Chronology.ofLocale(Locale.getDefault(Locale.Category.FORMAT));
+    stringConverter = new LocalDateStringConverter(FormatStyle.SHORT, null, chronology);
+    userInput.setValue(null);
+    userInput.setValue(stringConverter.toString(persistentValue.getValue()));
+  }
 
-    @Override
-    public DateField bind(ObjectProperty<LocalDate> binding) {
-        return super.bind(binding);
+  @Override
+  public DateField bind(ObjectProperty<LocalDate> binding) {
+    return super.bind(binding);
 
-    }
+  }
 }

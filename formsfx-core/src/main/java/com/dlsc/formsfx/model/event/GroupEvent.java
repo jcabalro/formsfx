@@ -32,43 +32,45 @@ import javafx.event.EventType;
  */
 public final class GroupEvent extends Event {
 
-    /**
-	 * Serial Version UID.
-	 */
-	private static final long serialVersionUID = -6648088286997049856L;
+  /**
+   * Serial Version UID.
+   */
+  private static final long serialVersionUID = -6648088286997049856L;
 
-	/**
-     * When a {@code Group} is persisted.
-     */
-    public static final EventType<GroupEvent> EVENT_GROUP_PERSISTED = new EventType<>(ANY, "EVENT_GROUP_PERSISTED");
+  /**
+   * When a {@code Group} is persisted.
+   */
+  public static final EventType<GroupEvent> EVENT_GROUP_PERSISTED = new EventType<>(ANY, "EVENT_GROUP_PERSISTED");
 
-    /**
-     * When a {@code Group} is reset.
-     */
-    public static final EventType<GroupEvent> EVENT_GROUP_RESET = new EventType<>(ANY, "EVENT_GROUP_RESET");
+  /**
+   * When a {@code Group} is reset.
+   */
+  public static final EventType<GroupEvent> EVENT_GROUP_RESET = new EventType<>(ANY, "EVENT_GROUP_RESET");
 
-    /**
-     * Creates a new instance of {@code GroupEvent} with event type set to {@code EVENT_GROUP_PERSISTED}.
-     */
-    public static GroupEvent groupPersistedEvent(Group group) {
-        return new GroupEvent(EVENT_GROUP_PERSISTED, group);
-    }
+  /**
+   * Creates a new instance of {@code GroupEvent} with event type set to
+   * {@code EVENT_GROUP_PERSISTED}.
+   */
+  public static GroupEvent groupPersistedEvent(Group group) {
+    return new GroupEvent(EVENT_GROUP_PERSISTED, group);
+  }
 
-    /**
-     * Creates a new instance of {@code GroupEvent} with event type set to {@code EVENT_GROUP_RESET}.
-     */
-    public static GroupEvent groupResetEvent(Group group) {
-        return new GroupEvent(EVENT_GROUP_RESET, group);
-    }
+  /**
+   * Creates a new instance of {@code GroupEvent} with event type set to
+   * {@code EVENT_GROUP_RESET}.
+   */
+  public static GroupEvent groupResetEvent(Group group) {
+    return new GroupEvent(EVENT_GROUP_RESET, group);
+  }
 
-    private final Group group;
+  private final Group group;
 
-    private GroupEvent(EventType<? extends Event> eventType, Group group) {
-        super(eventType);
-        this.group = group;
-    }
+  private GroupEvent(EventType<? extends Event> eventType, Group group) {
+    super(eventType);
+    this.group = group;
+  }
 
-    public final Group getGroup() {
-        return group;
-    }
+  public final Group getGroup() {
+    return group;
+  }
 }

@@ -32,43 +32,45 @@ import javafx.event.EventType;
  */
 public final class FieldEvent extends Event {
 
-    /**
-	 * Serial Version UID.
-	 */
-	private static final long serialVersionUID = 2660706940498766263L;
+  /**
+   * Serial Version UID.
+   */
+  private static final long serialVersionUID = 2660706940498766263L;
 
-	/**
-     * When a {@code Field} is persisted.
-     */
-    public static final EventType<FieldEvent> EVENT_FIELD_PERSISTED = new EventType<>(ANY, "EVENT_FIELD_PERSISTED");
+  /**
+   * When a {@code Field} is persisted.
+   */
+  public static final EventType<FieldEvent> EVENT_FIELD_PERSISTED = new EventType<>(ANY, "EVENT_FIELD_PERSISTED");
 
-    /**
-     * When a {@code Field} is reset.
-     */
-    public static final EventType<FieldEvent> EVENT_FIELD_RESET = new EventType<>(ANY, "EVENT_FIELD_RESET");
+  /**
+   * When a {@code Field} is reset.
+   */
+  public static final EventType<FieldEvent> EVENT_FIELD_RESET = new EventType<>(ANY, "EVENT_FIELD_RESET");
 
-    /**
-     * Creates a new instance of {@code FieldEvent} with event type set to {@code EVENT_FIELD_PERSISTED}.
-     */
-    public static FieldEvent fieldPersistedEvent(Field<?> field) {
-        return new FieldEvent(EVENT_FIELD_PERSISTED, field);
-    }
+  /**
+   * Creates a new instance of {@code FieldEvent} with event type set to
+   * {@code EVENT_FIELD_PERSISTED}.
+   */
+  public static FieldEvent fieldPersistedEvent(Field<?> field) {
+    return new FieldEvent(EVENT_FIELD_PERSISTED, field);
+  }
 
-    /**
-     * Creates a new instance of {@code FieldEvent} with event type set to {@code EVENT_FIELD_RESET}.
-     */
-    public static FieldEvent fieldResetEvent(Field<?> field) {
-        return new FieldEvent(EVENT_FIELD_RESET, field);
-    }
+  /**
+   * Creates a new instance of {@code FieldEvent} with event type set to
+   * {@code EVENT_FIELD_RESET}.
+   */
+  public static FieldEvent fieldResetEvent(Field<?> field) {
+    return new FieldEvent(EVENT_FIELD_RESET, field);
+  }
 
-    private final Field<?> field;
+  private final Field<?> field;
 
-    private FieldEvent(EventType<? extends Event> eventType, Field<?> field) {
-        super(eventType);
-        this.field = field;
-    }
+  private FieldEvent(EventType<? extends Event> eventType, Field<?> field) {
+    super(eventType);
+    this.field = field;
+  }
 
-    public final Field<?> getField() {
-        return field;
-    }
+  public final Field<?> getField() {
+    return field;
+  }
 }

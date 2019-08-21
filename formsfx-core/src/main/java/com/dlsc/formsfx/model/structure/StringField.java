@@ -34,50 +34,47 @@ import javafx.beans.property.StringProperty;
  */
 public class StringField extends DataField<StringProperty, String, StringField> {
 
-    protected final BooleanProperty multiline = new SimpleBooleanProperty(false);
+  protected final BooleanProperty multiline = new SimpleBooleanProperty(false);
 
-    /**
-     * The constructor of {@code StringField}.
-     *
-     * @param valueProperty
-     *              The property that is used to store the current valid value
-     *              of the field.
-     * @param persistentValueProperty
-     *              The property that is used to store the latest persisted
-     *              value of the field.
-     */
-    protected StringField(SimpleStringProperty valueProperty, SimpleStringProperty persistentValueProperty) {
-        super(valueProperty, persistentValueProperty);
+  /**
+   * The constructor of {@code StringField}.
+   *
+   * @param valueProperty           The property that is used to store the current
+   *                                valid value of the field.
+   * @param persistentValueProperty The property that is used to store the latest
+   *                                persisted value of the field.
+   */
+  protected StringField(SimpleStringProperty valueProperty, SimpleStringProperty persistentValueProperty) {
+    super(valueProperty, persistentValueProperty);
 
-        stringConverter = new AbstractStringConverter<String>() {
-            @Override
-            public String fromString(String string) {
-                return string;
-            }
-        };
+    stringConverter = new AbstractStringConverter<String>() {
+      @Override
+      public String fromString(String string) {
+        return string;
+      }
+    };
 
-        userInput.set(stringConverter.toString(value.getValue()));
-    }
+    userInput.set(stringConverter.toString(value.getValue()));
+  }
 
-    /**
-     * Sets whether the field is considered to be multiline or not.
-     *
-     * @param newValue
-     *              The new value for the multiline property.
-     *
-     * @return Returns the current field to allow for chaining.
-     */
-    public StringField multiline(boolean newValue) {
-        multiline.setValue(newValue);
-        return this;
-    }
+  /**
+   * Sets whether the field is considered to be multiline or not.
+   *
+   * @param newValue The new value for the multiline property.
+   *
+   * @return Returns the current field to allow for chaining.
+   */
+  public StringField multiline(boolean newValue) {
+    multiline.setValue(newValue);
+    return this;
+  }
 
-    public boolean isMultiline() {
-        return multiline.get();
-    }
+  public boolean isMultiline() {
+    return multiline.get();
+  }
 
-    public BooleanProperty multilineProperty() {
-        return multiline;
-    }
+  public BooleanProperty multilineProperty() {
+    return multiline;
+  }
 
 }

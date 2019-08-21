@@ -29,24 +29,24 @@ package com.dlsc.formsfx.model.validators;
  */
 public class ValidationResult {
 
-    private boolean result;
-    private String errorMessage;
+  private boolean result;
+  private String errorMessage;
 
-    ValidationResult(boolean result, String errorMessage) {
-        this.result = result;
+  ValidationResult(boolean result, String errorMessage) {
+    this.result = result;
 
-        // The error message is only included in the result if the validation
-        // failed.
+    // The error message is only included in the result if the validation
+    // failed.
 
-        this.errorMessage = !result ? errorMessage : null;
-    }
+    this.errorMessage = !result ? errorMessage : null;
+  }
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
+  public String getErrorMessage() {
+    return errorMessage;
+  }
 
-    public boolean getResult() {
-        return result;
-    }
+  public boolean getResult() {
+    return result;
+  }
 
 }

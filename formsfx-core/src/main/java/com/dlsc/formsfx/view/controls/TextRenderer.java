@@ -35,55 +35,55 @@ import javafx.scene.control.TextInputControl;
  */
 public class TextRenderer extends LabeledRenderer<StringField, TextInputControl> {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void initializeParts() {
-		super.initializeParts();
-		getStyleClass().add("simple-text-control");
-		if (field.isMultiline()) {
-			control = new TextArea(field.getValue());
-			control.setPromptText(field.getPlaceholder());
-			control.getStyleClass().add("simple-textarea");
-		} else {
-			control = new TextField(field.getValue());
-			control.setPromptText(field.getPlaceholder());
-		}
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+    super.initializeParts();
+    getStyleClass().add("simple-text-control");
+    if (field.isMultiline()) {
+      control = new TextArea(field.getValue());
+      control.setPromptText(field.getPlaceholder());
+      control.getStyleClass().add("simple-textarea");
+    } else {
+      control = new TextField(field.getValue());
+      control.setPromptText(field.getPlaceholder());
+    }
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void layoutParts() {
-		super.layoutParts();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void layoutParts() {
+    super.layoutParts();
 
-		if (field.isMultiline()) {
-			TextArea txa = (TextArea) control;
-			txa.getStyleClass().add("simple-textarea");
-			txa.setPrefHeight(80);
-			txa.setPrefRowCount(5);
-			txa.setWrapText(true);
-		}
-	}
+    if (field.isMultiline()) {
+      TextArea txa = (TextArea) control;
+      txa.getStyleClass().add("simple-textarea");
+      txa.setPrefHeight(80);
+      txa.setPrefRowCount(5);
+      txa.setWrapText(true);
+    }
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setupBindings() {
-		super.setupBindings();
-		control.textProperty().bindBidirectional(field.userInputProperty());
-		control.promptTextProperty().bind(field.placeholderProperty());
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupBindings() {
+    super.setupBindings();
+    control.textProperty().bindBidirectional(field.userInputProperty());
+    control.promptTextProperty().bind(field.placeholderProperty());
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setupValueChangedListeners() {
-		super.setupValueChangedListeners();
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupValueChangedListeners() {
+    super.setupValueChangedListeners();
+  }
 
 }

@@ -7,12 +7,25 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 public abstract class LabeledRenderer<F extends Field<F>, C extends Control> extends SimpleControl<F> {
 
   protected C control;
   protected Label fieldLabel;
+  protected GridPane view;
+
+  @Override
+  public GridPane getView() {
+    return view;
+  }
+
+  @Override
+  public void setField(F field) {
+    view = new GridPane();
+    super.setField(field);
+  }
 
   /**
    * {@inheritDoc}
@@ -31,13 +44,19 @@ public abstract class LabeledRenderer<F extends Field<F>, C extends Control> ext
    */
   @Override
   public void layoutParts() {
-    super.layoutParts();
-
-    GridPane view = (GridPane) getView();
+    GridPane view = getView();
     Node labelDescription = field.getLabelDescription();
     Node valueDescription = field.getValueDescription();
 
+    view.setAlignment(Pos.CENTER_LEFT);
+
     int columns = field.getSpan();
+
+    for (int i = 0; i < columns; i++) {
+      ColumnConstraints colConst = new ColumnConstraints();
+      colConst.setPercentWidth(100.0 / columns);
+      view.getColumnConstraints().add(colConst);
+    }
 
     if (fieldLabel == null) {
       view.add(control, 0, 1, columns, 1);

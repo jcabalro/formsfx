@@ -30,7 +30,7 @@ package com.dlsc.formsfx.model.util;
  */
 public enum BindingMode {
 
-    CONTINUOUS,
-    PERSISTENT
+  CONTINUOUS,
+  PERSISTENT
 
 }

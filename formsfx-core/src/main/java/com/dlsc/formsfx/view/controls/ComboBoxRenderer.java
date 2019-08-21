@@ -33,49 +33,49 @@ import javafx.scene.control.ComboBox;
  */
 public class ComboBoxRenderer<V> extends LabeledRenderer<SingleSelectionField<V>, ComboBox<V>> {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initializeParts() {
-        super.initializeParts();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+    super.initializeParts();
 
-        getStyleClass().add("simple-select-control");
-        control = new ComboBox<>(field.getItems());
-        int index = field.getItems().indexOf(field.getSelection());
-        control.setValue(field.getSelection());
-        control.getSelectionModel().clearAndSelect(index);
-        // control.getSelectionModel().select(field.getItems().indexOf(field.getSelection()));
-    }
+    getStyleClass().add("simple-select-control");
+    control = new ComboBox<>(field.getItems());
+    int index = field.getItems().indexOf(field.getSelection());
+    control.setValue(field.getSelection());
+    control.getSelectionModel().clearAndSelect(index);
+    // control.getSelectionModel().select(field.getItems().indexOf(field.getSelection()));
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void layoutParts() {
-        super.layoutParts();
-        control.setMaxWidth(Double.MAX_VALUE);
-        control.setVisibleRowCount(4);
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void layoutParts() {
+    super.layoutParts();
+    control.setMaxWidth(Double.MAX_VALUE);
+    control.setVisibleRowCount(4);
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupValueChangedListeners() {
-        super.setupValueChangedListeners();
-        control.valueProperty().addListener((ob, o, n) -> {
-        	field.select(control.getSelectionModel().getSelectedIndex());
-        });
-        field.itemsProperty().addListener((ob, o, n)  -> control.setItems(field.getItems()));
-        field.selectionProperty().addListener((observable, oldValue, newValue) -> {
-            if (field.getSelection() != null) {
-                control.getSelectionModel().select(field.getItems().indexOf(field.getSelection()));
-            } else {
-                control.getSelectionModel().clearSelection();
-            }
-        });
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupValueChangedListeners() {
+    super.setupValueChangedListeners();
+    control.valueProperty().addListener((ob, o, n) -> {
+      field.select(control.getSelectionModel().getSelectedIndex());
+    });
+    field.itemsProperty().addListener((ob, o, n) -> control.setItems(field.getItems()));
+    field.selectionProperty().addListener((observable, oldValue, newValue) -> {
+      if (field.getSelection() != null) {
+        control.getSelectionModel().select(field.getItems().indexOf(field.getSelection()));
+      } else {
+        control.getSelectionModel().clearSelection();
+      }
+    });
 
-    }
+  }
 
 }

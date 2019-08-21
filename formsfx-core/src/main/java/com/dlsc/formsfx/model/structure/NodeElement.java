@@ -26,20 +26,20 @@ import javafx.scene.Node;
  * @author Andres Almiray
  */
 public class NodeElement<N extends Node> extends Element<NodeElement<N>> {
-    protected N node;
+  protected N node;
 
-    public static <T extends Node> NodeElement<T> of(T node) {
-        return new NodeElement<T>(node);
-    }
+  public static <T extends Node> NodeElement<T> of(T node) {
+    return new NodeElement<T>(node);
+  }
 
-    protected NodeElement(N node) {
-        if (node == null) {
-            throw new NullPointerException("Node argument must not be null");
-        }
-        this.node = node;
+  protected NodeElement(N node) {
+    if (node == null) {
+      throw new NullPointerException("Node argument must not be null");
     }
+    this.node = node;
+  }
 
-    public N getNode() {
-        return node;
-    }
+  public N getNode() {
+    return node;
+  }
 }

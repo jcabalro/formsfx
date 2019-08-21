@@ -30,25 +30,23 @@ import javafx.beans.property.StringProperty;
  * @author Andres Almiray
  */
 public class PasswordField extends DataField<StringProperty, String, PasswordField> {
-    /**
-     * The constructor of {@code PasswordField}.
-     *
-     * @param valueProperty
-     *              The property that is used to store the current valid value
-     *              of the field.
-     * @param persistentValueProperty
-     *              The property that is used to store the latest persisted
-     *              value of the field.
-     */
-    protected PasswordField(SimpleStringProperty valueProperty, SimpleStringProperty persistentValueProperty) {
-        super(valueProperty, persistentValueProperty);
+  /**
+   * The constructor of {@code PasswordField}.
+   *
+   * @param valueProperty           The property that is used to store the current
+   *                                valid value of the field.
+   * @param persistentValueProperty The property that is used to store the latest
+   *                                persisted value of the field.
+   */
+  protected PasswordField(SimpleStringProperty valueProperty, SimpleStringProperty persistentValueProperty) {
+    super(valueProperty, persistentValueProperty);
 
-        stringConverter = new AbstractStringConverter<String>() {
-            @Override
-            public String fromString(String string) {
-                return string;
-            }
-        };
-        userInput.set(stringConverter.toString(value.getValue()));
-    }
+    stringConverter = new AbstractStringConverter<String>() {
+      @Override
+      public String fromString(String string) {
+        return string;
+      }
+    };
+    userInput.set(stringConverter.toString(value.getValue()));
+  }
 }

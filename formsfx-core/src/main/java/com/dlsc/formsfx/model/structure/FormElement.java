@@ -24,7 +24,7 @@ package com.dlsc.formsfx.model.structure;
  * @author Andres Almiray
  */
 public interface FormElement {
-    void persist();
+  void persist();
 
-    void reset();
+  void reset();
 }

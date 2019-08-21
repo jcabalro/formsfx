@@ -37,90 +37,86 @@ import javafx.collections.ObservableList;
  * @author Andres Almiray
  */
 public abstract class Element<E extends Element<E>> {
-    /**
-     * Fields can be styled using CSS through ID or class hooks.
-     */
-    protected final StringProperty id = new SimpleStringProperty(UUID.randomUUID().toString());
-    protected final ListProperty<String> styleClass = new SimpleListProperty<>(FXCollections.observableArrayList());
-    protected final IntegerProperty span = new SimpleIntegerProperty(12);
+  /**
+   * Fields can be styled using CSS through ID or class hooks.
+   */
+  protected final StringProperty id = new SimpleStringProperty(UUID.randomUUID().toString());
+  protected final ListProperty<String> styleClass = new SimpleListProperty<>(FXCollections.observableArrayList());
+  protected final IntegerProperty span = new SimpleIntegerProperty(12);
 
-    /**
-     * Sets the id property of the current field.
-     *
-     * @param newValue
-     *              The new value for the id property.
-     *
-     * @return Returns the current field to allow for chaining.
-     */
-    @SuppressWarnings("unchecked")
-	public E id(String newValue) {
-        id.set(newValue);
-        return (E) this;
-    }
+  /**
+   * Sets the id property of the current field.
+   *
+   * @param newValue The new value for the id property.
+   *
+   * @return Returns the current field to allow for chaining.
+   */
+  @SuppressWarnings("unchecked")
+  public E id(String newValue) {
+    id.set(newValue);
+    return (E) this;
+  }
 
-    /**
-     * Sets the style classes for the current field.
-     *
-     * @param newValue
-     *              The new style classes.
-     *
-     * @return Returns the current field to allow for chaining.
-     */
-    @SuppressWarnings("unchecked")
-	public E styleClass(String... newValue) {
-        styleClass.setAll(newValue);
-        return (E) this;
-    }
+  /**
+   * Sets the style classes for the current field.
+   *
+   * @param newValue The new style classes.
+   *
+   * @return Returns the current field to allow for chaining.
+   */
+  @SuppressWarnings("unchecked")
+  public E styleClass(String... newValue) {
+    styleClass.setAll(newValue);
+    return (E) this;
+  }
 
-    /**
-     * Sets the amount of columns the field takes up inside the section grid.
-     *
-     * @param newValue
-     *              The new number of columns.
-     *
-     * @return Returns the current field to allow for chaining.
-     */
-    @SuppressWarnings("unchecked")
-	public E span(int newValue) {
-        span.setValue(newValue);
-        return (E) this;
-    }
+  /**
+   * Sets the amount of columns the field takes up inside the section grid.
+   *
+   * @param newValue The new number of columns.
+   *
+   * @return Returns the current field to allow for chaining.
+   */
+  @SuppressWarnings("unchecked")
+  public E span(int newValue) {
+    span.setValue(newValue);
+    return (E) this;
+  }
 
-    /**
-     * Sets the amount of columns the field takes up inside the section grid.
-     *
-     * @param newValue
-     *              The new span fraction.
-     *
-     * @return Returns the current field to allow for chaining.
-     */
-    @SuppressWarnings("unchecked")
-	public E span(ColSpan newValue) {
-        span.setValue(newValue.valueOf());
-        return (E) this;
-    }
+  /**
+   * Sets the amount of columns the field takes up inside the section grid.
+   *
+   * @param newValue The new span fraction.
+   *
+   * @return Returns the current field to allow for chaining.
+   */
+  @SuppressWarnings("unchecked")
+  public E span(ColSpan newValue) {
+    span.setValue(newValue.valueOf());
+    return (E) this;
+  }
 
-    public int getSpan() {
-        return span.get();
-    }
+  public int getSpan() {
+    return span.get();
+  }
 
-    public IntegerProperty spanProperty() {
-        return span;
-    }
+  public IntegerProperty spanProperty() {
+    return span;
+  }
 
-    public String getID() {
-        return id.get();
-    }
+  public String getID() {
+    return id.get();
+  }
 
-    public StringProperty idProperty() {
-        return id;
-    }
+  public StringProperty idProperty() {
+    return id;
+  }
 
-    public ObservableList<String> getStyleClass() {
-        return styleClass.get();
-    }
+  public ObservableList<String> getStyleClass() {
+    return styleClass.get();
+  }
 
-    public ListProperty<String> styleClassProperty() {
-        return styleClass;
-    }
+  public ListProperty<String> styleClassProperty() {
+    return styleClass;
+  }
 }

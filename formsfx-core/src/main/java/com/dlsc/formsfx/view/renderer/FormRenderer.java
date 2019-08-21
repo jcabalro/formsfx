@@ -1,5 +1,6 @@
 package com.dlsc.formsfx.view.renderer;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,21 +42,28 @@ public class FormRenderer extends VBox implements ViewMixin {
 
   protected VBox view;
   protected Form form;
+  protected URL styleSheet;
 
   @SuppressWarnings("rawtypes")
   protected List<GroupRendererBase> sections = new ArrayList<>();
 
   /**
    * This is the constructor to pass over data.
-   * 
+   *
    * @param form The form which gets rendered.
    */
-  public FormRenderer(Form form) {
+  public FormRenderer(Form form, URL styleSheet) {
     this.form = form;
-
+    if (styleSheet == null) {
+      this.styleSheet = getClass().getResource("style.css");
+    }
     init();
   }
-  
+
+  public FormRenderer(Form form) {
+    this(form, null);
+  }
+
   @Override
   public VBox getView() {
     return view;
@@ -63,7 +71,7 @@ public class FormRenderer extends VBox implements ViewMixin {
 
   @Override
   public String getUserAgentStylesheet() {
-    return getClass().getResource("style.css").toExternalForm();
+    return styleSheet.toExternalForm();
   }
 
   /**

@@ -33,32 +33,31 @@ import java.util.List;
  */
 public abstract class TranslationService {
 
-    private List<Runnable> listeners = new ArrayList<>();
+  private List<Runnable> listeners = new ArrayList<>();
 
-    /**
-     * Looks up a key in the translation service and returns the translate string.
-     *
-     * @param key
-     *              The key to use for the lookup.
-     *
-     * @return The translated string.
-     */
-    public abstract String translate(String key);
+  /**
+   * Looks up a key in the translation service and returns the translate string.
+   *
+   * @param key The key to use for the lookup.
+   *
+   * @return The translated string.
+   */
+  public abstract String translate(String key);
 
-    public void addListener(Runnable listener) {
-        listeners.add(listener);
-    }
+  public void addListener(Runnable listener) {
+    listeners.add(listener);
+  }
 
-    public void removeListener(Runnable listener) {
-        listeners.remove(listener);
-    }
+  public void removeListener(Runnable listener) {
+    listeners.remove(listener);
+  }
 
-    /**
-     * Notifies all listeners of a locale change. Concrete implementations must
-     * call this method after every locale change.
-     */
-    protected void notifyListeners() {
-        listeners.forEach(Runnable::run);
-    }
+  /**
+   * Notifies all listeners of a locale change. Concrete implementations must call
+   * this method after every locale change.
+   */
+  protected void notifyListeners() {
+    listeners.forEach(Runnable::run);
+  }
 
 }
